@@ -12,7 +12,9 @@ public class ClienteRepository : RepositoryBase, IClienteRepository
 
     public async Task AddAsync(Cliente newCliente) => await base.AddAsync<Cliente>(newCliente);
 
-    public async Task<Cliente> GetAsync(long pessoaId) => await base.GetAsync<Cliente>(b => b.PessoaId == pessoaId);
+    public async Task<Cliente> GetAsync(long id) => await base.GetAsync<Cliente>(b => b.Id == id);
+
+    public async Task<Cliente> GetByPessoaIdAsync(long pessoaId) => await base.GetAsync<Cliente>(b => b.PessoaId == pessoaId);
 
     public async Task<int> DeleteAsync(Cliente dados) => await base.DeleteAsync(dados);
 
@@ -36,6 +38,4 @@ public class ClienteRepository : RepositoryBase, IClienteRepository
 
         return clienteView;
     }
-
-
 }

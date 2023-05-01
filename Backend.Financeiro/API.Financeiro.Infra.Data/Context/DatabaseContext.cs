@@ -1,5 +1,6 @@
 ﻿using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Cliente;
+using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Pessoa;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ public class DatabaseContext : DbContext
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Pessoa> Pessoas { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Fornecedor> Fornecedores { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

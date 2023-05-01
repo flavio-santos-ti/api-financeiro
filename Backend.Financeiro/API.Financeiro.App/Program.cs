@@ -37,9 +37,11 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IFornecedorService, FornecedorService>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 
 // End - Application --------------------------------
 

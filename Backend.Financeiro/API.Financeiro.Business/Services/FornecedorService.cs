@@ -1,32 +1,33 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
-using API.Financeiro.Domain.Cliente;
+using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
+using API.Financeiro.Infra.Data.Repositories;
 
 namespace API.Financeiro.Business.Services;
 
-public class ClienteService : ServiceBase, IClienteService
+public class FornecedorService : ServiceBase, IFornecedorService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPessoaService _pessoaService;
-    private readonly IClienteRepository _clienteRepository;
+    private readonly IFornecedorRepository _fornecedorRepository;
 
-    public ClienteService(IUnitOfWork unitOfWork, IPessoaService pessoaService, IClienteRepository clienteRepository)
+    public FornecedorService(IUnitOfWork unitOfWork, IPessoaService pessoaService, IFornecedorRepository fornecedorRepository)
     {
         _unitOfWork = unitOfWork;
         _pessoaService = pessoaService;
-        _clienteRepository = clienteRepository;
+        _fornecedorRepository = fornecedorRepository;
     }
 
-    public async Task<ServiceResult> CreateAsync(CreateCliente dados)
+    public async Task<ServiceResult> CreateAsync(CreateFornecedor dados)
     {
         await _unitOfWork.BeginTransactionAsync();
 
         CreatePessoa newPessoa = new();
-        newPessoa.Nome= dados.Nome;
+        newPessoa.Nome = dados.Nome;
 
         var pessoa = await _pessoaService.CreateAsync(newPessoa);
 
@@ -34,25 +35,25 @@ public class ClienteService : ServiceBase, IClienteService
         {
             return pessoa;
         }
-        
+
         long pessoaId = (long)pessoa.Data;
 
-        var cliente = await _clienteRepository.GetByPessoaIdAsync(pessoaId);
+        var cliente = await _fornecedorRepository.GetByPessoaIdAsync(pessoaId);
 
         if (cliente != null)
         {
             await _unitOfWork.RolbackAsync();
-            return base.ErrorJaExiste("Cliente");
-        } 
+            return base.ErrorJaExiste("Fornecedor");
+        }
         else
         {
-            Cliente newCliente = new();
-            newCliente.PessoaId = pessoaId;
-            newCliente.DataInclusao = DateTime.Now;
-            await _clienteRepository.AddAsync(newCliente);
+            Fornecedor newFornecedor = new();
+            newFornecedor.PessoaId = pessoaId;
+            newFornecedor.DataInclusao = DateTime.Now;
+            await _fornecedorRepository.AddAsync(newFornecedor);
             await _unitOfWork.SaveAsync();
             await _unitOfWork.CommitAsync();
-            return base.SuccessedAdd(newCliente, "Cliente");
+            return base.SuccessedAdd(newFornecedor, "Fornecedor");
         }
     }
 
@@ -60,35 +61,35 @@ public class ClienteService : ServiceBase, IClienteService
     {
         await _unitOfWork.BeginTransactionAsync();
 
-        var cliente = await _clienteRepository.GetAsync(id);
+        var fornecedor = await _fornecedorRepository.GetAsync(id);
 
-        if (cliente == null)
+        if (fornecedor == null)
         {
             await _unitOfWork.RolbackAsync();
-            return base.ErrorNaoEncontrado("Cliente");
+            return base.ErrorNaoEncontrado("Fornecedor");
         }
         else
         {
-            int result = await _clienteRepository.DeleteAsync(cliente);
+            int result = await _fornecedorRepository.DeleteAsync(fornecedor);
             await _unitOfWork.SaveAsync();
 
             if (result == 1)
             {
                 await _unitOfWork.CommitAsync();
-                return base.SuccessedDelete("Cliente");
+                return base.SuccessedDelete("Fornecedor");
             }
             else
             {
                 await _unitOfWork.RolbackAsync();
-                return base.ErrorDelete("Cliente");
+                return base.ErrorDelete("Fornecedor");
             }
         }
     }
 
     public async Task<ServiceResult> GetViewAllAsync(int skip, int take)
     {
-        var clientes = await _clienteRepository.GetViewAllAsync(skip, take);
+        var fornecedores = await _fornecedorRepository.GetViewAllAsync(skip, take);
 
-        return base.SuccessedViewAll(clientes, "Clientes", clientes.Count());
+        return base.SuccessedViewAll(fornecedores, "Fornecedores", fornecedores.Count());
     }
 }
