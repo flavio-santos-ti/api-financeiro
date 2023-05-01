@@ -6,6 +6,18 @@ LC_CTYPE="Portuguese_Brazil.1252"
 LC_COLLATE="Portuguese_Brazil.1252";
 
 
+-- 1) Categoria : Primeiro cadastro a ser realizado
+
+CREATE TABLE IF NOT EXISTS public.categoria
+(
+    id BIGSERIAL NOT NULL,
+    nome CHARACTER VARYING(50) NOT NULL,
+    tipo CHAR(1) NOT NULL,
+    CONSTRAINT pk_categoria PRIMARY KEY(id) 
+);
+
+COMMENT ON TABLE public.categoria IS 'Categoria de Títulos. Tipo: E = Entrada e S = Saída';
+
 -- 1) Pessoa
 
 CREATE TABLE IF NOT EXISTS public.pessoa
@@ -41,16 +53,6 @@ CREATE TABLE IF NOT EXISTS public.fornecedor
 	CONSTRAINT fk_fornecedor_pessoa FOREIGN KEY (pessoa_id) REFERENCES public.pessoa(id)
 );
 
--- Categoria
-CREATE TABLE IF NOT EXISTS public.categoria
-(
-    id SERIAL NOT NULL,
-    nome CHARACTER VARYING(50) NOT NULL,
-    tipo CHAR(1) NOT NULL,
-	CONSTRAINT pk_categoria PRIMARY KEY(id) 
-);
-
-COMMENT ON TABLE public.categoria IS 'Categoria de Títulos. Tipo: E = Entrada e S = Saída';
 
 --
 
