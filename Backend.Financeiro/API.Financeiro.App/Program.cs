@@ -30,13 +30,16 @@ builder.Services.AddApiVersioning(p =>
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateCategoriaValidator>();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // Habilitar DateTime.Now comum 
 builder.Services.AddDbContext<DatabaseContext>(opts => opts.UseNpgsql(builder.Configuration.GetConnectionString("PgSqlConnection")));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<IPessoaService, PessoaService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-
-
+builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 // End - Application --------------------------------
 

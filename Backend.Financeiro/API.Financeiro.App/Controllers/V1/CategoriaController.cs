@@ -46,10 +46,8 @@ public class CategoriaController : ControllerBase
     [HttpGet("{skip:int}/{take:int}")]
     public async Task<IActionResult> GetViewAllAsync(int skip, int take)
     {
-        var usuario = await _service.GetViewAllAsync(skip, take);
+        var categoria = await _service.GetViewAllAsync(skip, take);
 
-        return (!usuario.Successed) ? BadRequest(usuario) : Ok(usuario);
+        return (!categoria.Successed) ? BadRequest(categoria) : Ok(categoria);
     }
-
-
 }
