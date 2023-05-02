@@ -1,6 +1,7 @@
 ﻿using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Infra.Data.Interfaces;
+using API.Financeiro.Infra.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ public class ClienteRepositoryFake : IClienteRepository
     {
     }
 
-    async Task IClienteRepository.AddAsync(Cliente newCliente)
+    public async Task AddAsync(Cliente newCliente)
     {
         await Task.Delay(1);
     }
@@ -89,4 +90,5 @@ public class ClienteRepositoryFake : IClienteRepository
 
         return _clientes.Skip(skip).Take(take).ToList();
     }
+
 }

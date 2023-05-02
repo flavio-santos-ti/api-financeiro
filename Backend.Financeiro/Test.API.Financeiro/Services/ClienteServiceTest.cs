@@ -114,6 +114,34 @@ public class ClienteServiceTest
         Assert.IsTrue(retorno.Successed);
     }
 
+    [TestMethod]
+    [DataRow(1)]
+    [TestCategory("Cliente - Service")]
+    public async Task Se_o_Id_existir_retorna_igual_True(int id)
+    {
+        // Arrange 
+        var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
 
+        // Act
+        bool retorno = await cliente.IsValidAsync(id);
+
+        // Assert
+        Assert.IsTrue(retorno);
+    }
+
+    [TestMethod]
+    [DataRow(2)]
+    [TestCategory("Cliente - Service")]
+    public async Task Se_o_Id_nao_existir_retorna_igual_False(int id)
+    {
+        // Arrange 
+        var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+
+        // Act
+        bool retorno = await cliente.IsValidAsync(id);
+
+        // Assert
+        Assert.IsFalse(retorno);
+    }
 
 }
