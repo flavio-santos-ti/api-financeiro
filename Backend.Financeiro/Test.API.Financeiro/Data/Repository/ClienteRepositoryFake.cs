@@ -1,4 +1,5 @@
-﻿using API.Financeiro.Domain.Cliente;
+﻿using API.Financeiro.Domain.Categoria;
+using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace Test.API.Financeiro.Data.Repository;
 
 public class ClienteRepositoryFake : IClienteRepository 
 {
+    private IEnumerable<ViewCliente> _clientes;
+
     public ClienteRepositoryFake()
     {
     }
@@ -59,8 +62,31 @@ public class ClienteRepositoryFake : IClienteRepository
         }
     }
 
-    Task<IEnumerable<ViewCliente>> IClienteRepository.GetViewAllAsync(int skip, int take)
+    public async Task<IEnumerable<ViewCliente>> GetViewAllAsync(int skip, int take)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+
+        await Task.Run(() => {
+
+            _clientes = new List<ViewCliente>() {
+                new ViewCliente()
+                {
+                    Id = 1,
+                    PessoaId = 1,
+                    Nome = "Flavio",
+                    DataInclusao = DateTime.Now
+                },
+                new ViewCliente()
+                {
+                    Id = 2,
+                    PessoaId = 2,
+                    Nome = "Roberto",
+                    DataInclusao = DateTime.Now
+                }
+            };
+
+        });
+
+        return _clientes.Skip(skip).Take(take).ToList();
     }
 }

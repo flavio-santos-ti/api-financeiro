@@ -87,7 +87,7 @@ public class ClienteServiceTest
     [TestMethod]
     [TestCategory("Cliente - Service")]
     [DataRow(1)]
-    public async Task Se_o_Id_existir_retorna_Successed_igual_true(long clientId)
+    public async Task Se_o_Id_existir_retorna_Successed_igual_True(long clientId)
     {
         // Arrange 
         var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
@@ -98,6 +98,22 @@ public class ClienteServiceTest
         // Assert
         Assert.IsTrue(retorno.Successed);
     }
+
+    [TestMethod]
+    [DataRow(0, 24)]
+    [TestCategory("Cliente - Service")]
+    public async Task Ao_chamar_o_metodo_GetViewAllAsync_retorna_Successed_igual_True(int skip, int take)
+    {
+        // Arrange 
+        var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+
+        // Act
+        ServiceResult retorno = await cliente.GetViewAllAsync(skip, take);
+
+        // Assert
+        Assert.IsTrue(retorno.Successed);
+    }
+
 
 
 }
