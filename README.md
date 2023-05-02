@@ -8,7 +8,7 @@
 
 Este é um repositório para mostrar a implementação e o funcionamento de uma aplicação do tipo Web API onde um comerciante precisa controlar seu fluxo de caixa diário com os lançamentos (débitos e créditos) como também um relatório que disponibilize o saldo consolidado.
 
-<p><i>Por questões de tempo, os testes unitários foram implementados .</i></p>
+<p><i>Por questões de tempo, os testes unitários foram implementados na classe <strong>Categoria Service</strong> e no momento estou implementando o mesmo na classe <strong>Cliente Service</strong>.</i></p>
 
 Nessa primeira versão, para fins didáticos e também como utilizei apenas do meu tempo livre disponível, o relatório será apenas um retorno em JSON, mas em futuro próximo estarei implemetando o retorno de um arquivo PDF representando o relatório.
 
