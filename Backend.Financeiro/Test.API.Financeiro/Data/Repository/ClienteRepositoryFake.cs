@@ -14,29 +14,49 @@ public class ClienteRepositoryFake : IClienteRepository
     {
     }
 
-    Task IClienteRepository.AddAsync(Cliente newCliente)
+    async Task IClienteRepository.AddAsync(Cliente newCliente)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
     }
 
-    Task<int> IClienteRepository.DeleteAsync(Cliente dados)
+    public async Task<int> DeleteAsync(Cliente dados)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+
+        return 1;
     }
 
-    Task<Cliente> IClienteRepository.GetAsync(long id)
+    public async Task<Cliente> GetAsync(long id)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+        if (id == 1)
+        {
+            Cliente cliente = new();
+            cliente.Id = id;
+            cliente.PessoaId = 1;
+            cliente.DataInclusao = DateTime.Now;
+            return cliente;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public async Task<Cliente> GetByPessoaIdAsync(long pessoaId)
     {
         await Task.Delay(1);
         
-        Cliente cliente = new();
-        cliente.PessoaId = pessoaId;
-        cliente.DataInclusao = DateTime.Now;
-        return cliente;
+        if (pessoaId == 1)
+        {
+            Cliente cliente = new();
+            cliente.PessoaId = pessoaId;
+            cliente.DataInclusao = DateTime.Now;
+            return cliente;
+        } else
+        {
+            return null;
+        }
     }
 
     Task<IEnumerable<ViewCliente>> IClienteRepository.GetViewAllAsync(int skip, int take)

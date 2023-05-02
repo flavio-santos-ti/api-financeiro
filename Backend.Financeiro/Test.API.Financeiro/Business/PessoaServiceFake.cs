@@ -19,14 +19,25 @@ public class PessoaServiceFake : IPessoaService
     public async Task<ServiceResult> CreateAsync(CreatePessoa dados)
     {
         await Task.Delay(1);
-        
+
         var result = new ServiceResult();
-        result.Successed = true;
-        result.Name = "Pessoa";
-        result.Message = "Ok";
-        result.Data = null;
-        result.ResultId = 1;
-        return result;
+        if (dados.Nome == "Flavio")
+        {
+            result.Successed = true;
+            result.Name = "Pessoa";
+            result.Message = "Ok";
+            result.Data = null;
+            result.ResultId = 1;
+            return result;
+        } else
+        {
+            result.Successed = true;
+            result.Name = "Pessoa";
+            result.Message = "Ok";
+            result.Data = null;
+            result.ResultId = 2;
+            return result;
+        }
 
     }
 }
