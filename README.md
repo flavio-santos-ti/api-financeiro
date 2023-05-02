@@ -3,10 +3,12 @@
 
 | Autor | Última alteração     |
 | :------------- | :------------- |
-| Flávio dos Santos   | 01 Maio de 2023 |
+| Flávio dos Santos   | 02 Maio de 2023 |
 ## 1 - Sobre o projeto
 
 Este é um repositório para mostrar a implementação e o funcionamento de uma aplicação do tipo Web API onde um comerciante precisa controlar seu fluxo de caixa diário com os lançamentos (débitos e créditos) como também um relatório que disponibilize o saldo consolidado.
+
+<p><i>Por questões de tempo, os testes unitários foram implementados .</i></p>
 
 Nessa primeira versão, para fins didáticos e também como utilizei apenas do meu tempo livre disponível, o relatório será apenas um retorno em JSON, mas em futuro próximo estarei implemetando o retorno de um arquivo PDF representando o relatório.
 
