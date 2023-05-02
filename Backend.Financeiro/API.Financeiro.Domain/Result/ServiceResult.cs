@@ -12,4 +12,5 @@ public class ServiceResult
     public string Name { get; set; }
     public string Message { get; set; }
     public object Data { get; set; }
+    public long ResultId { get; set; }
 }

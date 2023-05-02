@@ -45,7 +45,7 @@ public class PessoaService : ServiceBase, IPessoaService
             newPessoa.DataInclusao = DateTime.Now;
             await _pessoaRepository.AddAsync(newPessoa);
             await _unitOfWork.SaveAsync();
-            return base.SuccessedAdd(newPessoa.Id, "Pessoa");
+            return base.SuccessedAddId(newPessoa.Id, "Pessoa");
         }
         else
         {

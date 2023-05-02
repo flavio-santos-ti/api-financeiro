@@ -1,6 +1,10 @@
-﻿using Api.Crud.Infra.Data.Context;
+﻿using Dapper;
+using Api.Crud.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Npgsql;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Crud.Infra.Data.Repositories.Base;
 
@@ -39,4 +43,15 @@ public class RepositoryBase
     {
         return _context;
     }
+
+    protected async Task<dynamic> ListarAsync<T>(string sqlQuery, object model)
+    {
+        string connectionString = _context.GetConfiguration().GetConnectionString("PgSqlConnection"); 
+        
+        using (NpgsqlConnection conexao = new NpgsqlConnection(connectionString))
+        {
+            return await conexao.QueryAsync<T>(sqlQuery, model);
+        }
+    }
+
 }

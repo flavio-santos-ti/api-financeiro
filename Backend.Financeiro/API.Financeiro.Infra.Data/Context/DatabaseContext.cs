@@ -1,7 +1,11 @@
 ﻿using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Cliente;
+using API.Financeiro.Domain.Exrato;
 using API.Financeiro.Domain.Fornecedor;
+using API.Financeiro.Domain.Pagar;
 using API.Financeiro.Domain.Pessoa;
+using API.Financeiro.Domain.Receber;
+using API.Financeiro.Domain.Saldo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
@@ -21,6 +25,10 @@ public class DatabaseContext : DbContext
     public DbSet<Pessoa> Pessoas { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Fornecedor> Fornecedores { get; set; }
+    public DbSet<Extrato> Extratos { get; set; }   
+    public DbSet<Saldo> Saldos { get; set; }
+    public DbSet<Pagar> Pagamentos { get; set; }
+    public DbSet<Receber> Recebimentos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

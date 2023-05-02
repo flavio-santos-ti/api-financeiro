@@ -5,6 +5,7 @@ using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
+using API.Financeiro.Infra.Data.Repositories;
 
 namespace API.Financeiro.Business.Services;
 
@@ -34,8 +35,8 @@ public class ClienteService : ServiceBase, IClienteService
         {
             return pessoa;
         }
-        
-        long pessoaId = (long)pessoa.Data;
+
+        long pessoaId = pessoa.ResultId;
 
         var cliente = await _clienteRepository.GetByPessoaIdAsync(pessoaId);
 
@@ -90,5 +91,12 @@ public class ClienteService : ServiceBase, IClienteService
         var clientes = await _clienteRepository.GetViewAllAsync(skip, take);
 
         return base.SuccessedViewAll(clientes, "Clientes", clientes.Count());
+    }
+
+    public async Task<bool> IsValidAsync(long id)
+    {
+        var cliente = await _clienteRepository.GetAsync(id);
+
+        return (cliente != null);
     }
 }

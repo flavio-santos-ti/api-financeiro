@@ -32,16 +32,25 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateCategoriaValidator>()
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); // Habilitar DateTime.Now comum 
 builder.Services.AddDbContext<DatabaseContext>(opts => opts.UseNpgsql(builder.Configuration.GetConnectionString("PgSqlConnection")));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFornecedorService, FornecedorService>();
+builder.Services.AddScoped<IReceberService, ReceberService>();
+builder.Services.AddScoped<IPagarService, PagarService>();
+builder.Services.AddScoped<ICaixaService, CaixaService>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+builder.Services.AddScoped<IReceberRepository, ReceberRepository>();
+builder.Services.AddScoped<IPagarRepository, PagarRepository>();
+builder.Services.AddScoped<ISaldoRepository, SaldoRepository>();
+builder.Services.AddScoped<IExtratoRepository, ExtratoRepository>();
 
 // End - Application --------------------------------
 

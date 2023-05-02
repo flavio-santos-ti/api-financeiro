@@ -92,4 +92,12 @@ public class FornecedorService : ServiceBase, IFornecedorService
 
         return base.SuccessedViewAll(fornecedores, "Fornecedores", fornecedores.Count());
     }
+
+    public async Task<bool> IsValidAsync(long id)
+    {
+        var fornecedor = await _fornecedorRepository.GetAsync(id);
+
+        return (fornecedor != null);
+    }
+
 }

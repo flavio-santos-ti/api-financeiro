@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,6 +24,13 @@ public class ServiceBase
         string ultimaLetra = substantivo.Substring(substantivo.Length - 1, 1) == "o" ? "o" : "a";
         return ultimaLetra;
     }
+    protected string ClearString(string text)
+    {
+        return new string(text
+                .Normalize(NormalizationForm.FormD)
+                .Where(ch => char.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark)
+                .ToArray());
+    }
 
     protected ServiceResult ErrorJaExiste(string name)
     {
@@ -33,6 +41,29 @@ public class ServiceBase
         result.Data = null;
         return result;
     }
+
+    protected ServiceResult Error(string message, string name)
+    {
+        var result = new ServiceResult();
+        result.Successed = false;
+        result.Name = name;
+        result.Message = message;
+        result.Data = null;
+        return result;
+    }
+
+    protected ServiceResult Successed(string message, string name)
+    {
+        string artigoIndefinido = this.GetArtigoIndefinido(name);
+
+        var result = new ServiceResult();
+        result.Successed = true;
+        result.Name = name;
+        result.Message = message;
+        result.Data = null;
+        return result;
+    }
+
 
     protected ServiceResult ErrorDelete(string name)
     {
@@ -87,6 +118,18 @@ public class ServiceBase
         result.Name = name;
         result.Message = name + $" adicionad{this.GetUltimaLetra(name)} com sucesso.";
         result.Data = dados;
+        return result;
+    }
+    protected ServiceResult SuccessedAddId(long id, string name)
+    {
+        string artigoIndefinido = this.GetArtigoIndefinido(name);
+
+        var result = new ServiceResult();
+        result.Successed = true;
+        result.Name = name;
+        result.Message = name + $" adicionad{this.GetUltimaLetra(name)} com sucesso.";
+        result.Data = null;
+        result.ResultId = id;
         return result;
     }
 

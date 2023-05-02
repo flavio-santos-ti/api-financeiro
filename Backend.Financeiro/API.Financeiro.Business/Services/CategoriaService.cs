@@ -2,8 +2,10 @@
 using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Categoria;
+using API.Financeiro.Domain.Extrato;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
+using API.Financeiro.Infra.Data.Repositories;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -85,6 +87,13 @@ public class CategoriaService : ServiceBase, ICategoriaService
         var categorias = await _categoriaRepository.GetViewAllAsync(skip, take);
 
         return base.SuccessedViewAll(categorias, "Categoria", categorias.Count());
+    }
+
+    public async Task<bool> IsValidAsync(long id)
+    {
+        var categoria = await _categoriaRepository.GetAsync(id);
+
+        return (categoria != null);
     }
 
 }
