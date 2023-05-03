@@ -36,7 +36,7 @@ public class FornecedorService : ServiceBase, IFornecedorService
             return pessoa;
         }
 
-        long pessoaId = (long)pessoa.Data;
+        long pessoaId = pessoa.ResultId;
 
         var cliente = await _fornecedorRepository.GetByPessoaIdAsync(pessoaId);
 
