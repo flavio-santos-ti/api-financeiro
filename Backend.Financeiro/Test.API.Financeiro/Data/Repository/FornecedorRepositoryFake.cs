@@ -8,17 +8,31 @@ public class FornecedorRepositoryFake : IFornecedorRepository
 {
     public async Task AddAsync(Fornecedor newFornecedor)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
     }
 
     public async Task<int> DeleteAsync(Fornecedor dados)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+
+        return 1;
     }
 
     public async Task<Fornecedor> GetAsync(long id)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+        if (id == 1)
+        {
+            Fornecedor fornecedor = new();
+            fornecedor.Id = id;
+            fornecedor.PessoaId = 1;
+            fornecedor.DataInclusao = DateTime.Now;
+            return fornecedor;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public async Task<Fornecedor> GetByPessoaIdAsync(long pessoaId)

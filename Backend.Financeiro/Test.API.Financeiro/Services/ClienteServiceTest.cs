@@ -63,7 +63,7 @@ public class ClienteServiceTest
     [TestMethod]
     [TestCategory("Cliente - Service")]
     [DataRow(2)]
-    public async Task Se_o_Id_nao_estiver_cadastrado_retorna_Successed_igual_False(long clientId)
+    public async Task Se_ao_tentar_Excluir_o_Id_nao_estiver_cadastrado_retorna_Successed_igual_False(long clientId)
     {
         // Arrange 
         var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
