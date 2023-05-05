@@ -6,6 +6,8 @@ namespace Test.API.Financeiro.Data.Repository;
 
 public class FornecedorRepositoryFake : IFornecedorRepository
 {
+    private IEnumerable<ViewFornecedor> _fornecedores;
+
     public async Task AddAsync(Fornecedor newFornecedor)
     {
         await Task.Delay(1);
@@ -52,8 +54,30 @@ public class FornecedorRepositoryFake : IFornecedorRepository
         }
     }
 
-    public Task<IEnumerable<ViewFornecedor>> GetViewAllAsync(int skip, int take)
+    public async Task<IEnumerable<ViewFornecedor>> GetViewAllAsync(int skip, int take)
     {
-        throw new NotImplementedException();
+        await Task.Run(() => {
+
+            _fornecedores = new List<ViewFornecedor>() {
+                new ViewFornecedor()
+                {
+                    Id = 1,
+                    PessoaId = 1,
+                    Nome = "Flavio",
+                    DataInclusao = DateTime.Now
+                },
+                new ViewFornecedor()
+                {
+                    Id = 2,
+                    PessoaId = 2,
+                    Nome = "Roberto",
+                    DataInclusao = DateTime.Now
+                }
+            };
+
+        });
+
+        return _fornecedores.Skip(skip).Take(take).ToList();
+
     }
 }

@@ -1,11 +1,9 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services;
-using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
 using Test.API.Financeiro.Business;
 using Test.API.Financeiro.Data.Repository;
 using Test.API.Financeiro.Data.UnitOfWork;
@@ -92,6 +90,50 @@ public class FornecedorServiceTest
         Assert.IsTrue(retorno.Successed);
     }
 
+    [TestMethod]
+    [TestCategory("Fornecedor - Service")]
+    [DataRow(0, 24)]
+    public async Task Ao_informar_o_Skip_igual_a_zero_e_Take_igual_24_retorna_Successed_igual_True(int skip, int take)
+    {
+        // Arrange 
+        var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+
+        // Act
+        ServiceResult retorno = await fornecedor.GetViewAllAsync(skip, take);
+
+        // Assert
+        Assert.IsTrue(retorno.Successed);
+    }
+
+    [TestMethod]
+    [TestCategory("Fornecedor - Service")]
+    [DataRow(1)]
+    public async Task Se_o_Id_do_Fornecedor_existir_retorna_True(long id)
+    {
+        // Arrange 
+        var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+
+        // Act
+        bool retorno = await fornecedor.IsValidAsync(id);
+
+        // Assert
+        Assert.IsTrue(retorno);
+    }
+
+    [TestMethod]
+    [TestCategory("Fornecedor - Service")]
+    [DataRow(2)]
+    public async Task Se_o_Id_do_Fornecedor_nao_existir_retorna_False(long id)
+    {
+        // Arrange 
+        var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+
+        // Act
+        bool retorno = await fornecedor.IsValidAsync(id);
+
+        // Assert
+        Assert.IsFalse(retorno);
+    }
 
 
 

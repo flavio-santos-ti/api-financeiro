@@ -58,8 +58,6 @@ public class ClienteRepositoryFake : IClienteRepository
 
     public async Task<IEnumerable<ViewCliente>> GetViewAllAsync(int skip, int take)
     {
-        await Task.Delay(1);
-
         await Task.Run(() => {
 
             _clientes = new List<ViewCliente>() {
