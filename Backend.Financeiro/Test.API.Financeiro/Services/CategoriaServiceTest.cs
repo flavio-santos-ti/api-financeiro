@@ -6,8 +6,8 @@ using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
 using AutoMapper;
-using Test.API.Financeiro.Data.Repository;
-using Test.API.Financeiro.Data.UnitOfWork;
+using Test.API.Financeiro.Repository;
+using Test.API.Financeiro.UnitOfWork;
 
 namespace Test.API.Financeiro.Services;
 
@@ -22,7 +22,7 @@ public class CategoriaServiceTest
     {
         _unitOfWork = new UnitOfWorkFake();
         _categoriaRepository = new CategoriaRepositoryFake();
-        var config = new MapperConfiguration(cfg => cfg.AddProfile<CategoriaMapper>());
+        var config = new MapperConfiguration(cfg => cfg.AddProfile<ClienteMapper>());
         _mapper = new Mapper(config);
     }
 

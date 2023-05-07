@@ -1,9 +1,9 @@
 ﻿using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Infra.Data.Interfaces;
 
-namespace Test.API.Financeiro.Data.Repository;
+namespace Test.API.Financeiro.Repository;
 
-public class ClienteRepositoryFake : IClienteRepository 
+public class ClienteRepositoryFake : IClienteRepository
 {
     private IEnumerable<ViewCliente> _clientes;
 
@@ -43,14 +43,15 @@ public class ClienteRepositoryFake : IClienteRepository
     public async Task<Cliente> GetByPessoaIdAsync(long pessoaId)
     {
         await Task.Delay(1);
-        
+
         if (pessoaId == 1)
         {
             Cliente cliente = new();
             cliente.PessoaId = pessoaId;
             cliente.DataInclusao = DateTime.Now;
             return cliente;
-        } else
+        }
+        else
         {
             return null;
         }
@@ -58,7 +59,8 @@ public class ClienteRepositoryFake : IClienteRepository
 
     public async Task<IEnumerable<ViewCliente>> GetViewAllAsync(int skip, int take)
     {
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
 
             _clientes = new List<ViewCliente>() {
                 new ViewCliente()

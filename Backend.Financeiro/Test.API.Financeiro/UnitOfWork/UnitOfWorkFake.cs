@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.API.Financeiro.Data.UnitOfWork;
+namespace Test.API.Financeiro.UnitOfWork;
 
 public class UnitOfWorkFake : IUnitOfWork
 {
@@ -22,7 +22,7 @@ public class UnitOfWorkFake : IUnitOfWork
     }
     public async Task CommitAsync()
     {
-        await Task.Delay(1); 
+        await Task.Delay(1);
     }
 
     public async Task RolbackAsync()

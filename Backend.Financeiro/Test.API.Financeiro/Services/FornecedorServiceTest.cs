@@ -1,12 +1,6 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Interfaces;
-using API.Financeiro.Business.Services;
-using API.Financeiro.Domain.Fornecedor;
-using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using Test.API.Financeiro.Business;
-using Test.API.Financeiro.Data.Repository;
-using Test.API.Financeiro.Data.UnitOfWork;
 
 namespace Test.API.Financeiro.Services;
 

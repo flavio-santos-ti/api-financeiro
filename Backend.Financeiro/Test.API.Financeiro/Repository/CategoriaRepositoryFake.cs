@@ -1,7 +1,7 @@
 ﻿using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Infra.Data.Interfaces;
 
-namespace Test.API.Financeiro.Data.Repository;
+namespace Test.API.Financeiro.Repository;
 
 public class CategoriaRepositoryFake : ICategoriaRepository
 {
@@ -19,7 +19,8 @@ public class CategoriaRepositoryFake : ICategoriaRepository
 
     public async Task<Categoria> GetAsync(string nome)
     {
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
 
             _categoria = new List<Categoria>() {
                 new Categoria(){ Id = 1, Nome = "Entradas", Tipo = "E"},
@@ -36,7 +37,8 @@ public class CategoriaRepositoryFake : ICategoriaRepository
     {
         await Task.Delay(1);
 
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
 
             _categoria = new List<Categoria>() {
                 new Categoria(){ Id = 1, Nome = "Entradas", Tipo = "E"},
@@ -56,7 +58,8 @@ public class CategoriaRepositoryFake : ICategoriaRepository
 
     public async Task<IEnumerable<Categoria>> GetViewAllAsync(int skip, int take)
     {
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
 
             _categoria = new List<Categoria>() {
                 new Categoria(){ Id = 1, Nome = "Entradas", Tipo = "E"},

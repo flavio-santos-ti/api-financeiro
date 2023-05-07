@@ -2,7 +2,7 @@
 using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Infra.Data.Interfaces;
 
-namespace Test.API.Financeiro.Data.Repository;
+namespace Test.API.Financeiro.Repository;
 
 public class FornecedorRepositoryFake : IFornecedorRepository
 {
@@ -56,7 +56,8 @@ public class FornecedorRepositoryFake : IFornecedorRepository
 
     public async Task<IEnumerable<ViewFornecedor>> GetViewAllAsync(int skip, int take)
     {
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
 
             _fornecedores = new List<ViewFornecedor>() {
                 new ViewFornecedor()

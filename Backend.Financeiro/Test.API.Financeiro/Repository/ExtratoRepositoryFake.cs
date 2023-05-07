@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.API.Financeiro.Data.Repository;
+namespace Test.API.Financeiro.Repository;
 
 public class ExtratoRepositoryFake : IExtratoRepository
 {

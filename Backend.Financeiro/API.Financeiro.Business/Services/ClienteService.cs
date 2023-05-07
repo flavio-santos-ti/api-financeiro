@@ -4,6 +4,7 @@ using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
+using AutoMapper;
 using FluentValidation;
 using FluentValidation.Results;
 

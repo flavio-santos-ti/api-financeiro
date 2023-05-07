@@ -11,7 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.API.Financeiro.Data.Repository;
+namespace Test.API.Financeiro.Repository;
 
 public class SaldoRepositoryFake : ISaldoRepository
 {
@@ -24,7 +24,8 @@ public class SaldoRepositoryFake : ISaldoRepository
 
     public async Task<Saldo> GetAsync(Expression<Func<Saldo, bool>> condicao)
     {
-        await Task.Run(() => {
+        await Task.Run(() =>
+        {
 
             _saldos = new List<Saldo>() {
                 new Saldo()

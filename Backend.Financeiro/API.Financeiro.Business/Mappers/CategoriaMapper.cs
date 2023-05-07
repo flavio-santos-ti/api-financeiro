@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace API.Financeiro.Business.Mappers;
 
-public class CategoriaMapper : AutoMapper.Profile
+public class ClienteMapper : AutoMapper.Profile
 {
-    public CategoriaMapper()
+    public ClienteMapper()
     {
         CreateMap<Categoria, ViewCategoria>();
     }

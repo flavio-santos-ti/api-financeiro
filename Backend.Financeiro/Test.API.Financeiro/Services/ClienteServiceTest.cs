@@ -1,12 +1,15 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Interfaces;
+using API.Financeiro.Business.Mappers;
 using API.Financeiro.Business.Services;
-using API.Financeiro.Domain.Cliente;
+using API.Financeiro.Business.Validators.Categoria;
+using API.Financeiro.Business.Validators.Cliente;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using Test.API.Financeiro.Business;
-using Test.API.Financeiro.Data.Repository;
-using Test.API.Financeiro.Data.UnitOfWork;
+using API.Financeiro.Infra.Data.Repositories;
+using AutoMapper;
+using Test.API.Financeiro.Repository;
+using Test.API.Financeiro.UnitOfWork;
 
 namespace Test.API.Financeiro.Services;
 
@@ -15,13 +18,49 @@ public class ClienteServiceTest
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IClienteRepository _clienteRepository;
-    private readonly IPessoaService _pessoaService;
+    private readonly IPessoaRepository _pessoaRepository;
 
     public ClienteServiceTest()
     {
-        //_unitOfWork = new UnitOfWorkFake();
-        //_clienteRepository = new ClienteRepositoryFake();
-        //_pessoaService = new PessoaServiceFake();
+        _unitOfWork = new UnitOfWorkFake();
+        _clienteRepository = new ClienteRepositoryFake();
+        _pessoaRepository = new PessoaRepositoryFake();
+    }
+
+    [TestMethod]
+    [TestCategory("Método - GetViewAllAsync()")]
+    [DataRow(0, 2)]
+    public async Task GetViewAllAsync_Se_o_Skip_for_igual_a_Zero_retorna_resultado_igual_a_True(int skip, int take)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+
+        // Act
+        ServiceResult retorno = await cliente.GetViewAllAsync(skip, take);
+        bool resultado = retorno.Count == 2;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - GetViewAllAsync()")]
+    [DataRow(3, 2)]
+    public async Task GetViewAllAsync_Se_o_Skip_for_igual_a_Tres_retorna_resultado_igual_a_False(int skip, int take)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+
+        // Act
+        ServiceResult retorno = await cliente.GetViewAllAsync(skip, take);
+        bool resultado = retorno.Count > 0;
+
+        // Assert
+        Assert.IsFalse(resultado);
     }
 
     //[TestMethod]
@@ -31,7 +70,7 @@ public class ClienteServiceTest
     //    // Arrange 
     //    CreateCliente dados = new();
     //    dados.Nome = "Flavio";
-        
+
     //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
 
     //    // Act
@@ -48,7 +87,7 @@ public class ClienteServiceTest
     //    // Arrange 
     //    CreateCliente dados = new();
     //    dados.Nome = "Roberto";
-        
+
 
     //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
 
