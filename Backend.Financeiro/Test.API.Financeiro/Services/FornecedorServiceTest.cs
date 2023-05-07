@@ -100,6 +100,43 @@ public class FornecedorServiceTest
         Assert.IsFalse(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - IsValidAsync()")]
+    [DataRow(1)]
+    public async Task IsValidAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        // Act
+        bool retorno = await fornecedor.IsValidAsync(id);
+
+        bool resultado = retorno;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - IsValidAsync()")]
+    [DataRow(5)]
+    public async Task IsValidAsync_Se_o_Nao_Id_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        // Act
+        bool retorno = await fornecedor.IsValidAsync(id);
+
+        bool resultado = retorno;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
 
     //[TestMethod]
