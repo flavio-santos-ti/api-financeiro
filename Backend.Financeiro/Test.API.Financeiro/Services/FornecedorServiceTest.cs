@@ -1,6 +1,12 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
-using API.Financeiro.Business.Interfaces;
+using API.Financeiro.Business.Services;
+using API.Financeiro.Business.Validators.Cliente;
+using API.Financeiro.Business.Validators.Fornecedor;
+using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
+using API.Financeiro.Infra.Data.Repositories;
+using Test.API.Financeiro.Repository;
+using Test.API.Financeiro.UnitOfWork;
 
 namespace Test.API.Financeiro.Services;
 
@@ -9,50 +15,52 @@ public class FornecedorServiceTest
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IFornecedorRepository _fornecedorRepository;
-    private readonly IPessoaService _pessoaService;
+    private readonly IPessoaRepository _pessoaRepository;
 
     public FornecedorServiceTest()
     {
-        //_unitOfWork = new UnitOfWorkFake();
-        //_fornecedorRepository = new FornecedorRepositoryFake();
-        //_pessoaService = new PessoaServiceFake();
+        _unitOfWork = new UnitOfWorkFake();
+        _fornecedorRepository = new FornecedorRepositoryFake();
+        _pessoaRepository = new PessoaRepositoryFake();
     }
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //public async Task Se_o_Nome_Ja_estiver_cadastrado_retorna_Successed_igual_a_False()
-    //{
-    //    // Arrange 
-    //    CreateFornecedor dados = new();
-    //    dados.Nome = "Flavio";
+    [TestMethod]
+    [TestCategory("Método - GetViewAllAsync()")]
+    [DataRow(0, 2)]
+    public async Task GetViewAllAsync_Se_o_Skip_for_igual_a_Zero_retorna_resultado_igual_a_True(int skip, int take)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+        // Act
+        ServiceResult retorno = await fornecedor.GetViewAllAsync(skip, take);
+        bool resultado = retorno.Count == 2;
 
-    //    // Act
-    //    ServiceResult retorno = await fornecedor.CreateAsync(dados);
+        // Assert
+        Assert.IsTrue(resultado);
+    }
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+    [TestMethod]
+    [TestCategory("Método - GetViewAllAsync()")]
+    [DataRow(3, 2)]
+    public async Task GetViewAllAsync_Se_o_Skip_for_igual_a_Tres_retorna_resultado_igual_a_False(int skip, int take)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //public async Task Se_o_Nome_nao_estiver_cadastrado_retorna_Successed_igual_True()
-    //{
-    //    // Arrange 
-    //    CreateFornecedor dados = new();
-    //    dados.Nome = "Roberto";
+        // Act
+        ServiceResult retorno = await fornecedor.GetViewAllAsync(skip, take);
+        bool resultado = retorno.Count > 0;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
-
-    //    // Act
-    //    ServiceResult retorno = await fornecedor.CreateAsync(dados);
-
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-
-    //}
 
     //[TestMethod]
     //[TestCategory("Fornecedor - Service")]
