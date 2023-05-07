@@ -138,6 +138,65 @@ public class FornecedorServiceTest
         Assert.IsFalse(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - DeleteAsync()")]
+    [DataRow(5)]
+    public async Task DeleteAsync_Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        // Act
+        ServiceResult retorno = await fornecedor.DeleteAsync(id);
+
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - DeleteAsync()")]
+    [DataRow(2)]
+    public async Task DeleteAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        // Act
+        ServiceResult retorno = await fornecedor.DeleteAsync(id);
+
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Ja_Existir_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        CreateFornecedor dados = new();
+        dados.Nome = "Dina";
+
+        // Act
+        ServiceResult retorno = await fornecedor.CreateAsync(dados);
+
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
+
 
     //[TestMethod]
     //[TestCategory("Fornecedor - Service")]
