@@ -46,19 +46,25 @@ public class FornecedorRepositoryFake : IFornecedorRepository
 
     public async Task<Fornecedor> GetByPessoaIdAsync(long pessoaId)
     {
-        await Task.Delay(1);
+        await Task.Run(() =>
+        {
+            _fornecedoresEntity = new List<Fornecedor>() {
+                new Fornecedor()
+                {
+                    Id = 1,
+                    PessoaId = 1,
+                    DataInclusao = DateTime.Now
+                },
+                new Fornecedor()
+                {
+                    Id = 2,
+                    PessoaId = 2,
+                    DataInclusao = DateTime.Now
+                }
+            };
+        });
 
-        if (pessoaId == 1)
-        {
-            Fornecedor fornecedor = new();
-            fornecedor.PessoaId = pessoaId;
-            fornecedor.DataInclusao = DateTime.Now;
-            return fornecedor;
-        }
-        else
-        {
-            return null;
-        }
+        return _fornecedoresEntity.Where(b => b.PessoaId == pessoaId).FirstOrDefault();
     }
 
     public async Task<IEnumerable<ViewFornecedor>> GetViewAllAsync(int skip, int take)

@@ -1,18 +1,15 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Services;
-using API.Financeiro.Business.Validators.Cliente;
 using API.Financeiro.Business.Validators.Fornecedor;
-using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
 using Test.API.Financeiro.Repository;
 using Test.API.Financeiro.UnitOfWork;
 
 namespace Test.API.Financeiro.Services;
 
-[TestClass]
+[TestClass] 
 public class FornecedorServiceTest
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -197,67 +194,66 @@ public class FornecedorServiceTest
         Assert.IsFalse(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Nao_Existir_retorna_o_resultado_igual_a_True()
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //[DataRow(1)]
-    //public async Task Se_ao_tentar_excluir_o_Id_existir_retorna_Successed_igual_True(long fornecedorId)
-    //{
-    //    // Arrange 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+        CreateFornecedor dados = new();
+        dados.Nome = "Roberto";
 
-    //    // Act
-    //    ServiceResult retorno = await fornecedor.DeleteAsync(fornecedorId);
+        // Act
+        ServiceResult retorno = await fornecedor.CreateAsync(dados);
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-    //}
+        bool resultado = retorno.Successed;
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //[DataRow(0, 24)]
-    //public async Task Ao_informar_o_Skip_igual_a_zero_e_Take_igual_24_retorna_Successed_igual_True(int skip, int take)
-    //{
-    //    // Arrange 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+        // Assert
+        Assert.IsTrue(resultado);
+    }
 
-    //    // Act
-    //    ServiceResult retorno = await fornecedor.GetViewAllAsync(skip, take);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Estiver_Em_Branco_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-    //}
+        CreateFornecedor dados = new();
+        dados.Nome = "";
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //[DataRow(1)]
-    //public async Task Se_o_Id_do_Fornecedor_existir_retorna_True(long id)
-    //{
-    //    // Arrange 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+        // Act
+        ServiceResult retorno = await fornecedor.CreateAsync(dados);
 
-    //    // Act
-    //    bool retorno = await fornecedor.IsValidAsync(id);
+        bool resultado = retorno.Successed;
 
-    //    // Assert
-    //    Assert.IsTrue(retorno);
-    //}
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //[DataRow(2)]
-    //public async Task Se_o_Id_do_Fornecedor_nao_existir_retorna_False(long id)
-    //{
-    //    // Arrange 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Estiver_Null_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
 
-    //    // Act
-    //    bool retorno = await fornecedor.IsValidAsync(id);
+        CreateFornecedor dados = new();
+        dados.Nome = null;
 
-    //    // Assert
-    //    Assert.IsFalse(retorno);
-    //}
+        // Act
+        ServiceResult retorno = await fornecedor.CreateAsync(dados);
 
+        bool resultado = retorno.Successed;
 
-
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 }
