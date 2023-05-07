@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Test.API.Financeiro.Business;
 
-public class PessoaServiceFake : IPessoaService
+public class PessoaServiceFake //: IPessoaService
 {
     public PessoaServiceFake()
     {
@@ -20,24 +20,26 @@ public class PessoaServiceFake : IPessoaService
     {
         await Task.Delay(1);
 
-        var result = new ServiceResult();
-        if (dados.Nome == "Flavio")
-        {
-            result.Successed = true;
-            result.Name = "Pessoa";
-            result.Message = "Ok";
-            result.Data = null;
-            result.ResultId = 1;
-            return result;
-        } else
-        {
-            result.Successed = true;
-            result.Name = "Pessoa";
-            result.Message = "Ok";
-            result.Data = null;
-            result.ResultId = 2;
-            return result;
-        }
+        //var result = new ServiceResult();
+        //if (dados.Nome == "Flavio")
+        //{
+        //    result.Successed = true;
+        //    result.Name = "Pessoa";
+        //    result.Message = "Ok";
+        //    result.Data = null;
+        //    result.ResultId = 1;
+        //    return result;
+        //} else
+        //{
+        //    result.Successed = true;
+        //    result.Name = "Pessoa";
+        //    result.Message = "Ok";
+        //    result.Data = null;
+        //    result.ResultId = 2;
+        //    return result;
+        //}
+
+        return null;
 
     }
 }

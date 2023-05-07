@@ -23,4 +23,8 @@
     <ProjectReference Include="..\API.Financeiro.App\API.Financeiro.App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapper\" />
+  </ItemGroup>
+
 </Project>

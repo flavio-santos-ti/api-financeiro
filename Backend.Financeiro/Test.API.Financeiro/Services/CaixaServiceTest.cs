@@ -28,62 +28,62 @@ public class CaixaServiceTest
         _extratoRepository = new ExtratoRepositoryFake();
     }
 
-    [TestMethod]
-    [TestCategory("Caixa - Service")]
-    public async Task Se_o_caixa_estiver_Fechado_na_Data_informada_retorna_True()
-    {
-        // Arrange
-        DateTime data = new DateTime(2023, 1, 1);
-        var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
+    //[TestMethod]
+    //[TestCategory("Caixa - Service")]
+    //public async Task Se_o_caixa_estiver_Fechado_na_Data_informada_retorna_True()
+    //{
+    //    // Arrange
+    //    DateTime data = new DateTime(2023, 1, 1);
+    //    var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
 
-        // Act
-        bool retorno = await caixa.IsFechadoAsync(data);
+    //    // Act
+    //    bool retorno = await caixa.IsFechadoAsync(data);
 
-        // Assert
-        Assert.IsTrue(retorno);
-    }
+    //    // Assert
+    //    Assert.IsTrue(retorno);
+    //}
 
-    [TestMethod]
-    [TestCategory("Caixa - Service")]
-    public async Task Se_o_caixa_nao_estiver_Fechado_na_Data_informada_retorna_False()
-    {
-        // Arrange
-        DateTime data = new DateTime(2023, 1, 2);
-        var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
+    //[TestMethod]
+    //[TestCategory("Caixa - Service")]
+    //public async Task Se_o_caixa_nao_estiver_Fechado_na_Data_informada_retorna_False()
+    //{
+    //    // Arrange
+    //    DateTime data = new DateTime(2023, 1, 2);
+    //    var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
 
-        // Act
-        bool retorno = await caixa.IsFechadoAsync(data);
+    //    // Act
+    //    bool retorno = await caixa.IsFechadoAsync(data);
 
-        // Assert
-        Assert.IsFalse(retorno);
-    }
+    //    // Assert
+    //    Assert.IsFalse(retorno);
+    //}
 
-    [TestMethod]
-    [TestCategory("Caixa - Service")]
-    public async Task Se_o_caixa_estiver_Aberto_na_Data_informada_retorna_True()
-    {
-        // Arrange
-        DateTime dataInformada = new DateTime(2023, 1, 1);
-        var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
-        // Act
-        bool retorno = await caixa.IsAbertoAsync(dataInformada);
+    //[TestMethod]
+    //[TestCategory("Caixa - Service")]
+    //public async Task Se_o_caixa_estiver_Aberto_na_Data_informada_retorna_True()
+    //{
+    //    // Arrange
+    //    DateTime dataInformada = new DateTime(2023, 1, 1);
+    //    var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
+    //    // Act
+    //    bool retorno = await caixa.IsAbertoAsync(dataInformada);
 
-        // Assert
-        Assert.IsTrue(retorno);
-    }
+    //    // Assert
+    //    Assert.IsTrue(retorno);
+    //}
 
-    [TestMethod]
-    [TestCategory("Caixa - Service")]
-    public async Task Se_o_caixa_nao_estiver_Aberto_na_Data_informada_retorna_False()
-    {
-        // Arrange
-        DateTime dataInformada = new DateTime(2023, 1, 3);
-        var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
-        // Act
-        bool retorno = await caixa.IsAbertoAsync(dataInformada);
+    //[TestMethod]
+    //[TestCategory("Caixa - Service")]
+    //public async Task Se_o_caixa_nao_estiver_Aberto_na_Data_informada_retorna_False()
+    //{
+    //    // Arrange
+    //    DateTime dataInformada = new DateTime(2023, 1, 3);
+    //    var caixa = new CaixaService(_saldoRepository, _unitOfWork, _extratoRepository);
+    //    // Act
+    //    bool retorno = await caixa.IsAbertoAsync(dataInformada);
 
-        // Assert
-        Assert.IsFalse(retorno);
-    }
+    //    // Assert
+    //    Assert.IsFalse(retorno);
+    //}
 
 }

@@ -171,6 +171,7 @@ public class ServiceBase
         var result = new ServiceResult();
         result.TransactionId = Guid.NewGuid();
         result.TransactionName = name;
+        result.Count = count;
         result.Successed = true;
         result.Message = message;
         result.Data = dados;

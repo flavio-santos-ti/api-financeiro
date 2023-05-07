@@ -20,13 +20,13 @@ public class CategoriaRepository : RepositoryBase, ICategoriaRepository
 
     public async Task<int> DeleteAsync(Categoria dados) => await base.DeleteAsync(dados); 
 
-    public async Task<IEnumerable<ViewCategoria>> GetViewAllAsync(int skip, int take)
+    public async Task<IEnumerable<Categoria>> GetViewAllAsync(int skip, int take)
     {
         DatabaseContext context = base.GetContext();
 
         var categoriaView = await(
             from categoria in context.Categorias
-            select new ViewCategoria
+            select new Categoria
             {
                 Id = categoria.Id,
                 Nome = categoria.Nome,
@@ -36,6 +36,8 @@ public class CategoriaRepository : RepositoryBase, ICategoriaRepository
             .Take(take)
             .ToListAsync();
         
+
+
         return categoriaView;
     }
 

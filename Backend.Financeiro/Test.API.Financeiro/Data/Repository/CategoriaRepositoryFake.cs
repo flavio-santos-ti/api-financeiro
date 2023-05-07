@@ -1,27 +1,18 @@
 ﻿using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Infra.Data.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test.API.Financeiro.Data.Repository;
 
 public class CategoriaRepositoryFake : ICategoriaRepository
 {
-    private IEnumerable<ViewCategoria> _categoria;
+    private IEnumerable<Categoria> _categoria;
 
     public CategoriaRepositoryFake()
     {
-        _categoria = new List<ViewCategoria>();
+        _categoria = new List<Categoria>();
     }
 
-    public async Task AddAsync(Categoria dados)
+    public async Task AddAsync(Categoria newCategoria)
     {
         await Task.CompletedTask;
     }
@@ -68,21 +59,18 @@ public class CategoriaRepositoryFake : ICategoriaRepository
         return 1;
     }
 
-    public async Task<IEnumerable<ViewCategoria>> GetViewAllAsync(int skip, int take)
+    public async Task<IEnumerable<Categoria>> GetViewAllAsync(int skip, int take)
     {
         await Task.Run(() => {
 
-            _categoria = new List<ViewCategoria>() {
-                new ViewCategoria(){ Id = 1, Nome = "Vendas", Tipo = "E"},
-                new ViewCategoria(){ Id = 2, Nome = "Despesas", Tipo = "S"}
+            _categoria = new List<Categoria>() {
+                new Categoria(){ Id = 1, Nome = "Entradas", Tipo = "E"},
+                new Categoria(){ Id = 2, Nome = "Saídas", Tipo = "S"}
             };
 
         });
 
         return _categoria.Skip(skip).Take(take).ToList();
-
     }
-
-
 
 }

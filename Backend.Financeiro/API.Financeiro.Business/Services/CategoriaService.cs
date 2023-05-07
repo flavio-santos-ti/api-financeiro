@@ -2,10 +2,9 @@
 using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Categoria;
-using API.Financeiro.Domain.Extrato;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
+using AutoMapper;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -16,12 +15,14 @@ public class CategoriaService : ServiceBase, ICategoriaService
     private readonly IValidator<CreateCategoria> _validatorCreate;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICategoriaRepository _categoriaRepository;
+    private readonly IMapper _mapper;
 
-    public CategoriaService(IValidator<CreateCategoria> validatorCreate, IUnitOfWork unitOfWork, ICategoriaRepository categoriaRepository)
+    public CategoriaService(IValidator<CreateCategoria> validatorCreate, IUnitOfWork unitOfWork, ICategoriaRepository categoriaRepository, IMapper mapper)
     {
         _validatorCreate = validatorCreate;
         _unitOfWork = unitOfWork;
         _categoriaRepository = categoriaRepository;
+        _mapper = mapper;
     }
 
     public async Task<ServiceResult> CreateAsync(CreateCategoria dados)
@@ -88,9 +89,11 @@ public class CategoriaService : ServiceBase, ICategoriaService
 
     public async Task<ServiceResult> GetViewAllAsync(int skip, int take)
     {
-        var categorias = await _categoriaRepository.GetViewAllAsync(skip, take);
+        IEnumerable<Categoria> categorias = await _categoriaRepository.GetViewAllAsync(skip, take);
 
-        return base.SuccessedViewAll(categorias, "Categoria", categorias.Count());
+        IEnumerable<ViewCategoria> viewCategorias = _mapper.Map<IEnumerable<ViewCategoria>>(categorias);
+
+        return base.SuccessedViewAll(categorias, "Categoria", viewCategorias.Count());
     }
 
     public async Task<bool> IsValidAsync(long id)

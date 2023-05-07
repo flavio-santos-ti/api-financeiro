@@ -9,6 +9,6 @@ namespace API.Financeiro.Infra.Data.Interfaces
         Task<Categoria> GetAsync(string nome);
         Task<Categoria> GetAsync(long id);
         Task<int> DeleteAsync(Categoria dados);
-        Task<IEnumerable<ViewCategoria>> GetViewAllAsync(int skip, int take);
+        Task<IEnumerable<Categoria>> GetViewAllAsync(int skip, int take);
     }
 }
