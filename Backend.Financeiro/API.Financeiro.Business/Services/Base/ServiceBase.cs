@@ -35,8 +35,9 @@ public class ServiceBase
     protected ServiceResult ErrorJaExiste(string name)
     {
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = false;
-        result.Name = name;
         result.Message = name + $" já cadastrad{this.GetUltimaLetra(name)}.";
         result.Data = null;
         return result;
@@ -45,8 +46,9 @@ public class ServiceBase
     protected ServiceResult Error(string message, string name)
     {
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = false;
-        result.Name = name;
         result.Message = message;
         result.Data = null;
         return result;
@@ -57,19 +59,34 @@ public class ServiceBase
         string artigoIndefinido = this.GetArtigoIndefinido(name);
 
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = true;
-        result.Name = name;
         result.Message = message;
         result.Data = null;
         return result;
     }
 
+    protected ServiceResult Successed(string message, string name, object dados, long id)
+    {
+        string artigoIndefinido = this.GetArtigoIndefinido(name);
+
+        var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
+        result.Successed = true;
+        result.Message = message;
+        result.Data = dados;
+        result.ResultId = id;
+        return result;
+    }
 
     protected ServiceResult ErrorDelete(string name)
     {
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = false;
-        result.Name = name;
         result.Message = $"Erro ao tentar excluir {this.GetUltimaLetra(name)} {name}.";
         result.Data = null;
         return result;
@@ -78,8 +95,9 @@ public class ServiceBase
     protected ServiceResult ErrorNaoEncontrado(string name)
     {
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = false;
-        result.Name = name;
         result.Message = name + $" não encontrad{this.GetUltimaLetra(name)}.";
         result.Data = null;
         return result;
@@ -101,8 +119,9 @@ public class ServiceBase
         };
 
         ServiceResult resultError = new();
+        resultError.TransactionId = Guid.NewGuid();
+        resultError.TransactionName = name;
         resultError.Successed = false;
-        resultError.Name = name;
         resultError.Message = $"Erro ao tentar criar {this.GetArtigoIndefinido(name)} " + name + ".";
         resultError.Data = erros;
 
@@ -114,8 +133,9 @@ public class ServiceBase
         string artigoIndefinido = this.GetArtigoIndefinido(name);
 
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = true;
-        result.Name = name;
         result.Message = name + $" adicionad{this.GetUltimaLetra(name)} com sucesso.";
         result.Data = dados;
         return result;
@@ -125,8 +145,9 @@ public class ServiceBase
         string artigoIndefinido = this.GetArtigoIndefinido(name);
 
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = true;
-        result.Name = name;
         result.Message = name + $" adicionad{this.GetUltimaLetra(name)} com sucesso.";
         result.Data = null;
         result.ResultId = id;
@@ -138,8 +159,9 @@ public class ServiceBase
         string artigoIndefinido = this.GetArtigoIndefinido(name);
 
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = true;
-        result.Name = name;
         result.Message = name + $" excluid{this.GetUltimaLetra(name)} com sucesso.";
         result.Data = null;
         return result;
@@ -149,8 +171,9 @@ public class ServiceBase
     {
         string message = $"{count} registro(s) encontrado(s).";
         var result = new ServiceResult();
+        result.TransactionId = Guid.NewGuid();
+        result.TransactionName = name;
         result.Successed = true;
-        result.Name = name;
         result.Message = message;
         result.Data = dados;
         return result;

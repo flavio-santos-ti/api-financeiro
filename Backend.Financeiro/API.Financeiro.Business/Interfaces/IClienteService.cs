@@ -12,6 +12,7 @@ public interface IClienteService
 {
     Task<ServiceResult> CreateAsync(CreateCliente dados);
     Task<ServiceResult> DeleteAsync(long id);
+    Task<Cliente> GetAsync(long id);
     Task<ServiceResult> GetViewAllAsync(int skip, int take);
     Task<bool> IsValidAsync(long id);
 }

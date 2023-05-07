@@ -40,15 +40,13 @@ builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFornecedorService, FornecedorService>();
-builder.Services.AddScoped<IReceberService, ReceberService>();
-builder.Services.AddScoped<IPagarService, PagarService>();
 builder.Services.AddScoped<ICaixaService, CaixaService>();
+builder.Services.AddScoped<IExtratoService, ExtratoService>();
+builder.Services.AddScoped<ISaldoService, SaldoService>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-builder.Services.AddScoped<IReceberRepository, ReceberRepository>();
-builder.Services.AddScoped<IPagarRepository, PagarRepository>();
 builder.Services.AddScoped<ISaldoRepository, SaldoRepository>();
 builder.Services.AddScoped<IExtratoRepository, ExtratoRepository>();
 

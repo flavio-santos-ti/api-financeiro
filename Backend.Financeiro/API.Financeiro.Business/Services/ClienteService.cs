@@ -86,6 +86,13 @@ public class ClienteService : ServiceBase, IClienteService
         }
     }
 
+    public async Task<Cliente> GetAsync(long id)
+    {
+        var cliente = await _clienteRepository.GetAsync(id);
+
+        return cliente;
+    }
+
     public async Task<ServiceResult> GetViewAllAsync(int skip, int take)
     {
         var clientes = await _clienteRepository.GetViewAllAsync(skip, take);

@@ -17,7 +17,6 @@ public class CategoriaService : ServiceBase, ICategoriaService
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICategoriaRepository _categoriaRepository;
 
-
     public CategoriaService(IValidator<CreateCategoria> validatorCreate, IUnitOfWork unitOfWork, ICategoriaRepository categoriaRepository)
     {
         _validatorCreate = validatorCreate;

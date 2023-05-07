@@ -1,22 +1,9 @@
-
-using Api.Crud.Infra.Data.Context;
 using Api.Crud.Infra.Data.Interfaces;
-using Api.Crud.Infra.Data.UnitOfWork;
-using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services;
 using API.Financeiro.Business.Validators.Categoria;
 using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using Test.API.Financeiro.Data.Repository;
 using Test.API.Financeiro.Data.UnitOfWork;
 

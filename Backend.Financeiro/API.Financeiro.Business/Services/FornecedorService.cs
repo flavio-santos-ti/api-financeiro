@@ -86,6 +86,14 @@ public class FornecedorService : ServiceBase, IFornecedorService
         }
     }
 
+    public async Task<Fornecedor> GetAsync(long id)
+    {
+        var fornecedor = await _fornecedorRepository.GetAsync(id);
+
+        return fornecedor;
+    }
+
+
     public async Task<ServiceResult> GetViewAllAsync(int skip, int take)
     {
         var fornecedores = await _fornecedorRepository.GetViewAllAsync(skip, take);

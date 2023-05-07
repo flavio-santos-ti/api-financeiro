@@ -21,7 +21,7 @@ public class SaldoRepository : RepositoryBase, ISaldoRepository
         DatabaseContext context = base.GetContext();
 
         var saldo = await context.Saldos
-            .Where(b => b.DataSaldo <= data)
+            .Where(b => b.DataSaldo == data)
             .AsNoTracking()
             .OrderByDescending(b => b.Id)
             .FirstOrDefaultAsync();
@@ -29,6 +29,20 @@ public class SaldoRepository : RepositoryBase, ISaldoRepository
         if (saldo == null) return 0;
 
         return saldo.Valor;
+    }
+
+    public async Task<DateTime> GetDataUltimoMovimentoAsync()
+    {
+        DatabaseContext context = base.GetContext();
+
+        var data = await context.Saldos.MaxAsync(b => (DateTime?)b.DataSaldo) ?? null; 
+        
+        if (data == null)
+        {
+            data = new DateTime(0001, 1, 1);
+        }
+
+        return (DateTime)data; 
     }
 
 }

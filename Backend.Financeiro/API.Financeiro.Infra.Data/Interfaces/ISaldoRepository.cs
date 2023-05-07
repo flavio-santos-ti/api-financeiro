@@ -13,4 +13,5 @@ public interface ISaldoRepository
     Task AddAsync(Saldo dados);
     Task<Saldo> GetAsync(Expression<Func<Saldo, bool>> condicao);
     Task<decimal> GetSaldoAsync(DateTime data);
+    Task<DateTime> GetDataUltimoMovimentoAsync();
 }
