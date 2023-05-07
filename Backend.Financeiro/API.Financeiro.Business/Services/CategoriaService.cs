@@ -81,6 +81,11 @@ public class CategoriaService : ServiceBase, ICategoriaService
         }
     }
 
+    public async Task<Categoria> GetAsync(long id)
+    {
+        return await _categoriaRepository.GetAsync(id);
+    }
+
     public async Task<ServiceResult> GetViewAllAsync(int skip, int take)
     {
         var categorias = await _categoriaRepository.GetViewAllAsync(skip, take);

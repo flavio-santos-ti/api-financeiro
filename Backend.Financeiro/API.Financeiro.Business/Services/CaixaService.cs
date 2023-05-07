@@ -3,6 +3,7 @@ using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Caixa;
 using API.Financeiro.Domain.Result;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API.Financeiro.Business.Services;
 
@@ -11,28 +12,37 @@ public class CaixaService : ServiceBase, ICaixaService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IExtratoService _extratoService;
     private readonly ISaldoService _saldoService;
+    private readonly ICategoriaService _categoriaService;
+    private readonly IClienteService _clienteService;
+    private readonly IFornecedorService _fornecedorService;
 
-    public CaixaService(IUnitOfWork unitOfWork, IExtratoService extratoService, ISaldoService saldoService)
+    public CaixaService(IUnitOfWork unitOfWork, IExtratoService extratoService, ISaldoService saldoService, ICategoriaService categoriaService, IClienteService clienteService, IFornecedorService fornecedorService)
     {
         _unitOfWork = unitOfWork;
         _extratoService = extratoService;
         _saldoService = saldoService;
+        _categoriaService = categoriaService;
+        _clienteService = clienteService;
+        _fornecedorService = fornecedorService;
     }
 
     private async Task<ServiceResult> ParseAberturaAsync(AbrirCaixa dados, DateTime dataUltimoSaldo)
     {
         if (await _saldoService.IsFechadoAsync(dados.DataInformada.Date))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("Encontra-se fechado.", "Abertura de Caixa");
         }
 
         if (await _saldoService.IsAbertoAsync(dados.DataInformada.Date))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("Já encontra-se aberto.", "Abertura de Caixa");
         }
 
         if (dataUltimoSaldo.ToString("dd/MM/yyyy") == dados.DataInformada.ToString("dd/MM/yyyy"))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("A data informada não pode ser igual a data do último saldo.", "Abertura de Caixa");
         }
 
@@ -43,21 +53,82 @@ public class CaixaService : ServiceBase, ICaixaService
     {
         if (await _saldoService.IsFechadoAsync(dados.DataInformada.Date))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("Encontra-se fechado.", "Abertura de Caixa");
         }
 
         if (!await _saldoService.IsAbertoAsync(dados.DataInformada.Date))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("Não foi encontrado caixa aberto para fechamento.", "Fechamento de Caixa");
         }
 
 
         if (dataUltimoSaldo.ToString("dd/MM/yyyy") != dados.DataInformada.ToString("dd/MM/yyyy"))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("A data informada não pode ser diferente a data do último saldo.", "Fechamento de Caixa");
         }
 
         return base.Successed("Ok", "Fechamento de Caixa");
+    }
+
+    private async Task<ServiceResult> ParseRecebimentoAsync(ReceberCaixa dados)
+    {
+        var assunto = "Registro de Recebimento";
+        
+        var categoria = await _categoriaService.GetAsync(dados.CategoriaId);
+
+        if (categoria == null)
+        {
+            await _unitOfWork.RolbackAsync();
+            return base.ErrorNaoEncontrado(assunto);
+        }
+
+        if (categoria.Tipo != "E")
+        {
+            await _unitOfWork.RolbackAsync();
+            return base.Error("Categoria inválida.", assunto);
+        }
+
+        var cliente = await _clienteService.GetAsync(dados.ClienteId);
+
+        if (cliente == null)
+        {
+            await _unitOfWork.RolbackAsync();
+            return base.ErrorNaoEncontrado(assunto);
+        }
+
+        return base.Successed("Ok", assunto);
+    }
+
+    private async Task<ServiceResult> ParsePagamentoAsync(PagarCaixa dados)
+    {
+        var assunto = "Registro de Pagamento";
+
+        var categoria = await _categoriaService.GetAsync(dados.CategoriaId);
+
+        if (categoria == null)
+        {
+            await _unitOfWork.RolbackAsync();
+            return base.ErrorNaoEncontrado(assunto);
+        }
+
+        if (categoria.Tipo != "S")
+        {
+            await _unitOfWork.RolbackAsync();
+            return base.Error("Categoria inválida.", assunto);
+        }
+
+        var fornecedor = await _fornecedorService.GetAsync(dados.FornecedorId);
+
+        if (fornecedor == null)
+        {
+            await _unitOfWork.RolbackAsync();
+            return base.ErrorNaoEncontrado(assunto);
+        }
+
+        return base.Successed("Ok", assunto);
     }
 
 
@@ -65,11 +136,13 @@ public class CaixaService : ServiceBase, ICaixaService
     {
         if (!await _saldoService.IsAbertoAsync(dataMovimento.Date))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error($"O movimento do dia {dataMovimento.ToString("dd-MM-yyyy")} ainda não foi aberto.", "Movimentação de Caixa");
         }
 
         if (await _saldoService.IsFechadoAsync(dataMovimento.Date))
         {
+            await _unitOfWork.RolbackAsync();
             return base.Error("Encontra-se fechado.", "Caixa");
         }
 
@@ -85,13 +158,9 @@ public class CaixaService : ServiceBase, ICaixaService
         decimal saldoAnterior = 0;
         DateTime dataUltimoSaldo = await _saldoService.GetDataUltimoMovimentoAsync();
 
-        var validaDados = await ParseAberturaAsync(dados, dataUltimoSaldo.Date);;
+        var parseAbertura = await ParseAberturaAsync(dados, dataUltimoSaldo.Date);;
 
-        if (!validaDados.Successed)
-        {
-            await _unitOfWork.RolbackAsync();
-            return validaDados;
-        }
+        if (!parseAbertura.Successed) return parseAbertura;
 
         // Registra Extrato
         if (dataUltimoSaldo.Date > new DateTime(0001, 1, 1))
@@ -130,13 +199,9 @@ public class CaixaService : ServiceBase, ICaixaService
         decimal saldoAnterior = 0;
         DateTime dataUltimoSaldo = await _saldoService.GetDataUltimoMovimentoAsync();
 
-        var validaDados = await ParseFechamentoAsync(dados, dataUltimoSaldo.Date); ;
+        var parseFechamento = await ParseFechamentoAsync(dados, dataUltimoSaldo.Date); ;
 
-        if (!validaDados.Successed)
-        {
-            await _unitOfWork.RolbackAsync();
-            return validaDados;
-        }
+        if (!parseFechamento.Successed) return parseFechamento;
 
         // Registra Extrato
         if (dataUltimoSaldo.Date > new DateTime(0001, 1, 1))
@@ -171,6 +236,10 @@ public class CaixaService : ServiceBase, ICaixaService
     {
         await _unitOfWork.BeginTransactionAsync();
 
+        var parseRecebimento = await ParseRecebimentoAsync(dados);
+
+        if (!parseRecebimento.Successed) return parseRecebimento;
+        
         // Valida Status do Caixa
         var caixaAberto = await IsAbertoAsync(dados.Data.Date);
 
@@ -217,6 +286,10 @@ public class CaixaService : ServiceBase, ICaixaService
     public async Task<ServiceResult> SetPagarAsync(PagarCaixa dados)
     {
         await _unitOfWork.BeginTransactionAsync();
+
+        var parsePagamento = await ParsePagamentoAsync(dados);
+
+        if (!parsePagamento.Successed) return parsePagamento;
 
         // Valida Status do Caixa
         var caixaAberto = await IsAbertoAsync(dados.Data.Date);

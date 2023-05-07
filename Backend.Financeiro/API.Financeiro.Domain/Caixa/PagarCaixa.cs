@@ -2,6 +2,7 @@
 
 public class PagarCaixa
 {
+    public long CategoriaId { get; set; }
     public long FornecedorId { get; set; }
     public decimal Valor { get; set; }
     public string Descricao { get; set; }

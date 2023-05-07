@@ -1,11 +1,9 @@
-﻿using Api.Crud.Infra.Data.Context;
-using Api.Crud.Infra.Data.Interfaces;
+﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Caixa;
 using API.Financeiro.Domain.Saldo;
 using API.Financeiro.Infra.Data.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Financeiro.Business.Services;
 

@@ -12,6 +12,7 @@ public interface ICategoriaService
 {
     Task<ServiceResult> CreateAsync(CreateCategoria dados);
     Task<ServiceResult> DeleteAsync(long id);
+    Task<Categoria> GetAsync(long id);
     Task<ServiceResult> GetViewAllAsync(int skip, int take);
     Task<bool> IsValidAsync(long id);
 }

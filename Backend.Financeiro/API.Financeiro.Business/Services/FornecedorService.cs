@@ -5,7 +5,6 @@ using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
 
 namespace API.Financeiro.Business.Services;
 
