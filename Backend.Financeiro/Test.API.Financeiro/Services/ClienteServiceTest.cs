@@ -68,7 +68,7 @@ public class ClienteServiceTest
     [TestMethod]
     [TestCategory("Método - GetAsync()")]
     [DataRow(1)]
-    public async Task Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    public async Task GetAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
     {
         // Arrange
         CreateClienteValidator validator = new CreateClienteValidator();
@@ -87,7 +87,7 @@ public class ClienteServiceTest
     [TestMethod]
     [TestCategory("Método - GetAsync()")]
     [DataRow(5)]
-    public async Task Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
+    public async Task GetAsync_Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
     {
         // Arrange
         CreateClienteValidator validator = new CreateClienteValidator();
@@ -98,6 +98,44 @@ public class ClienteServiceTest
         Cliente retorno = await cliente.GetAsync(id);
 
         bool resultado = retorno != null;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - IsValidAsync()")]
+    [DataRow(1)]
+    public async Task IsValidAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+
+        // Act
+        bool retorno = await cliente.IsValidAsync(id);
+
+        bool resultado = retorno;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - IsValidAsync()")]
+    [DataRow(5)]
+    public async Task IsValidAsync_Se_o_Nao_Id_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+
+        // Act
+        bool retorno = await cliente.IsValidAsync(id);
+
+        bool resultado = retorno;
 
         // Assert
         Assert.IsFalse(resultado);
