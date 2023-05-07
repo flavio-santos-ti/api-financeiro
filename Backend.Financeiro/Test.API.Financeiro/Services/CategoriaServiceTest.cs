@@ -97,6 +97,41 @@ public class CategoriaServiceTest
         Assert.IsTrue(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - IsValidAsync()")]
+    [DataRow(1)]
+    public async Task IsValidAsync_Se_o_Id_for_igual_a_Um_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
+
+        // Act
+        bool retorno = await categoria.IsValidAsync(id);
+
+        bool resultado = retorno;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - IsValidAsync()")]
+    [DataRow(2)]
+    public async Task IsValidAsync_Se_o_Id_for_igual_a_Dois_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
+
+        // Act
+        bool retorno = await categoria.IsValidAsync(id);
+
+        bool resultado = retorno;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
     //[TestMethod]
     //[TestCategory("Categoria - Service")]
