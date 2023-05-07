@@ -2,7 +2,6 @@
 using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Fornecedor;
-using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
 using FluentValidation;
