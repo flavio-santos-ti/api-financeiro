@@ -77,7 +77,6 @@ public class ServiceBase
         result.Successed = true;
         result.Message = message;
         result.Data = dados;
-        result.ResultId = id;
         return result;
     }
 
@@ -150,7 +149,6 @@ public class ServiceBase
         result.Successed = true;
         result.Message = name + $" adicionad{this.GetUltimaLetra(name)} com sucesso.";
         result.Data = null;
-        result.ResultId = id;
         return result;
     }
 

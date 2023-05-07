@@ -16,7 +16,7 @@ public class PessoaServiceFake : IPessoaService
     {
     }
 
-    public async Task<ServiceResult> CreateAsync(CreatePessoa dados)
+    public async Task<ServiceResult> CreateAsync(Pessoa dados)
     {
         await Task.Delay(1);
 

@@ -10,5 +10,5 @@ namespace API.Financeiro.Business.Interfaces;
 
 public interface IPessoaService
 {
-    Task<ServiceResult> CreateAsync(CreatePessoa dados);
+    Task<Pessoa> CreateAsync(string nome);
 }

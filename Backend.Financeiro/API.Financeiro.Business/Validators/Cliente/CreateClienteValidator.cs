@@ -1,11 +1,11 @@
-﻿using API.Financeiro.Domain.Pessoa;
+﻿using API.Financeiro.Domain.Cliente;
 using FluentValidation;
 
-namespace API.Financeiro.Business.Validators.Pessoa;
+namespace API.Financeiro.Business.Validators.Cliente;
 
-public class CreatePessoaValidator : AbstractValidator<CreatePessoa>
+public class CreateClienteValidator : AbstractValidator<CreateCliente>
 {
-    public CreatePessoaValidator()
+    public CreateClienteValidator()
     {
         RuleFor(x => x.Nome)
             .NotNull().WithMessage("Faltando.")

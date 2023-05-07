@@ -5,17 +5,21 @@ using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace API.Financeiro.Business.Services;
 
 public class FornecedorService : ServiceBase, IFornecedorService
 {
+    private readonly IValidator<CreateFornecedor> _validatorCreate;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPessoaService _pessoaService;
     private readonly IFornecedorRepository _fornecedorRepository;
 
-    public FornecedorService(IUnitOfWork unitOfWork, IPessoaService pessoaService, IFornecedorRepository fornecedorRepository)
+    public FornecedorService(IValidator<CreateFornecedor> validatorCreate, IUnitOfWork unitOfWork, IPessoaService pessoaService, IFornecedorRepository fornecedorRepository)
     {
+        _validatorCreate = validatorCreate;
         _unitOfWork = unitOfWork;
         _pessoaService = pessoaService;
         _fornecedorRepository = fornecedorRepository;
@@ -23,21 +27,15 @@ public class FornecedorService : ServiceBase, IFornecedorService
 
     public async Task<ServiceResult> CreateAsync(CreateFornecedor dados)
     {
+        ValidationResult result = await _validatorCreate.ValidateAsync(dados);
+
+        if (!result.IsValid) return base.ErrorValidationCreate(result, "Fornecedor");
+
         await _unitOfWork.BeginTransactionAsync();
 
-        CreatePessoa newPessoa = new();
-        newPessoa.Nome = dados.Nome;
+        var pessoa = await _pessoaService.CreateAsync(dados.Nome);
 
-        var pessoa = await _pessoaService.CreateAsync(newPessoa);
-
-        if (!pessoa.Successed)
-        {
-            return pessoa;
-        }
-
-        long pessoaId = pessoa.ResultId;
-
-        var cliente = await _fornecedorRepository.GetByPessoaIdAsync(pessoaId);
+        var cliente = await _fornecedorRepository.GetByPessoaIdAsync(pessoa.Id);
 
         if (cliente != null)
         {
@@ -47,7 +45,7 @@ public class FornecedorService : ServiceBase, IFornecedorService
         else
         {
             Fornecedor newFornecedor = new();
-            newFornecedor.PessoaId = pessoaId;
+            newFornecedor.PessoaId = pessoa.Id;
             newFornecedor.DataInclusao = DateTime.Now;
             await _fornecedorRepository.AddAsync(newFornecedor);
             await _unitOfWork.SaveAsync();
