@@ -4,6 +4,8 @@ using API.Financeiro.Business.Mappers;
 using API.Financeiro.Business.Services;
 using API.Financeiro.Business.Validators.Categoria;
 using API.Financeiro.Business.Validators.Cliente;
+using API.Financeiro.Domain.Categoria;
+using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
 using API.Financeiro.Infra.Data.Repositories;
@@ -62,6 +64,45 @@ public class ClienteServiceTest
         // Assert
         Assert.IsFalse(resultado);
     }
+
+    [TestMethod]
+    [TestCategory("Método - GetAsync()")]
+    [DataRow(1)]
+    public async Task Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+
+        // Act
+        Cliente retorno = await cliente.GetAsync(id);
+
+        bool resultado = retorno != null;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - GetAsync()")]
+    [DataRow(5)]
+    public async Task Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+
+        // Act
+        Cliente retorno = await cliente.GetAsync(id);
+
+        bool resultado = retorno != null;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
+
 
     //[TestMethod]
     //[TestCategory("Cliente - Service")]
