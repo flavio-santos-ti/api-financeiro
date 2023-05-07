@@ -81,8 +81,8 @@ public class CategoriaServiceTest
 
     [TestMethod]
     [TestCategory("Método - GetAsync()")]
-    [DataRow(2)]
-    public async Task Se_o_Id_for_igual_a_Dois_retorna_o_resultado_igual_a_True(long id)
+    [DataRow(5)]
+    public async Task Se_o_Id_Nao_Exisitr_retorna_o_resultado_igual_a_False(long id)
     {
         // Arrange
         CreateCategoriaValidator validator = new CreateCategoriaValidator();
@@ -91,10 +91,10 @@ public class CategoriaServiceTest
         // Act
         Categoria retorno = await categoria.GetAsync(id);
 
-        bool resultado = retorno == null;
+        bool resultado = retorno != null;
 
         // Assert
-        Assert.IsTrue(resultado);
+        Assert.IsFalse(resultado);
     }
 
     [TestMethod]
@@ -117,8 +117,8 @@ public class CategoriaServiceTest
 
     [TestMethod]
     [TestCategory("Método - IsValidAsync()")]
-    [DataRow(2)]
-    public async Task IsValidAsync_Se_o_Id_for_igual_a_Dois_retorna_o_resultado_igual_a_False(long id)
+    [DataRow(5)]
+    public async Task IsValidAsync_Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
     {
         // Arrange
         CreateCategoriaValidator validator = new CreateCategoriaValidator();
@@ -284,4 +284,42 @@ public class CategoriaServiceTest
         // Assert
         Assert.IsTrue(resultado);
     }
+
+    [TestMethod]
+    [TestCategory("Método - DeleteAsync()")]
+    [DataRow(8)]
+    public async Task DeleteAsync_Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
+
+        // Act
+        ServiceResult retorno = await categoria.DeleteAsync(id);
+
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - DeleteAsync()")]
+    [DataRow(2)]
+    public async Task DeleteAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
+
+        // Act
+        ServiceResult retorno = await categoria.DeleteAsync(id);
+
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+
 }

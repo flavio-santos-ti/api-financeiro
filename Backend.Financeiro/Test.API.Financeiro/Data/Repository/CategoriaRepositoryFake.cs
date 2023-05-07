@@ -36,19 +36,16 @@ public class CategoriaRepositoryFake : ICategoriaRepository
     {
         await Task.Delay(1);
 
-        if (id == 1 )
-        {
-            Categoria categoria = new();
-            categoria.Id = 1;
-            categoria.Nome = "Despesas";
-            categoria.Tipo = "S";
+        await Task.Run(() => {
 
-            return categoria;
-        }
-        else
-        {
-            return null;
-        }
+            _categoria = new List<Categoria>() {
+                new Categoria(){ Id = 1, Nome = "Entradas", Tipo = "E"},
+                new Categoria(){ Id = 2, Nome = "Saídas", Tipo = "S"}
+            };
+
+        });
+
+        return _categoria.Where(b => b.Id == id).FirstOrDefault();
     }
 
     public async Task<int> DeleteAsync(Categoria dados)
