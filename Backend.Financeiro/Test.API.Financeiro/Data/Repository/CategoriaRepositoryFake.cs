@@ -19,19 +19,17 @@ public class CategoriaRepositoryFake : ICategoriaRepository
 
     public async Task<Categoria> GetAsync(string nome)
     {
-        await Task.Delay(1);
+        await Task.Run(() => {
 
-        if (nome == "Vendas")
-        {
-            return null;
-        } else
-        {
-            Categoria categoria = new();
-            categoria.Nome = "Despesas";
-            categoria.Tipo = "S";
+            _categoria = new List<Categoria>() {
+                new Categoria(){ Id = 1, Nome = "Entradas", Tipo = "E"},
+                new Categoria(){ Id = 2, Nome = "Saídas", Tipo = "S"}
+            };
 
-            return categoria;
-        }
+        });
+
+        return _categoria.Where(b => b.Nome == nome).FirstOrDefault();
+
     }
 
     public async Task<Categoria> GetAsync(long id)

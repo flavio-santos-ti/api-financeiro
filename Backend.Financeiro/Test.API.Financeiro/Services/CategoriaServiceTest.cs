@@ -133,176 +133,155 @@ public class CategoriaServiceTest
         Assert.IsFalse(resultado);
     }
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //public async Task Se_o_Nome_estiver_em_branco_retorna_Successed_igual_a_False()
-    //{
-    //    // Arrange 
-    //    CreateCategoria dados = new();
-    //    dados.Nome = "";
-    //    dados.Tipo = "E";
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_estiver_Em_Branco_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = "";
+        dados.Tipo = "E";
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+        bool resultado = retorno.Successed;
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //public async Task Se_o_Nome_estiver_null_retorna_Successed_igual_a_False()
-    //{
-    //    // Arrange 
-    //    CreateCategoria dados = new();
-    //    dados.Nome = null;
-    //    dados.Tipo = "E";
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_estiver_Null_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = null;
+        dados.Tipo = "E";
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //public async Task Se_o_Tipo_estiver_em_branco_retorna_Successed_igual_a_False()
-    //{
-    //    // Arrange 
-    //    CreateCategoria dados = new();
-    //    dados.Nome = "Vendas";
-    //    dados.Tipo = "";
+        bool resultado = retorno.Successed;
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Tipo_estiver_Em_Branco_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = "Vendas";
+        dados.Tipo = "";
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //public async Task Se_o_Tipo_estiver_null_retorna_Successed_igual_a_False()
-    //{
-    //    // Arrange 
-    //    CreateCategoria dados = new();
-    //    dados.Nome = "Vendas";
-    //    dados.Tipo = null;
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+        bool resultado = retorno.Successed;
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Tipo_estiver_Null_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = "Vendas";
+        dados.Tipo = null;
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //[DataRow("Vendas", "e")]
-    //[DataRow("Vendas", "s")]
-    //[DataRow("Vendas", "A")]
-    //[DataRow("Vendas", "Z")]
-    //public async Task Se_o_Tipo_estiver_diferente_de_E_e_S_retorna_Successed_igual_a_False(string nome, string tipo)
-    //{
-    //    // Arrange 
-    //    CreateCategoria dados = new();
-    //    dados.Nome = nome;
-    //    dados.Tipo = tipo;
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+        bool resultado = retorno.Successed;
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //[DataRow("Despesas", "S")]
-    //public async Task Se_o_Nome_ja_estiver_cadastrado_retorna_Successed_igual_a_False(string nome, string tipo)
-    //{
-    //    // Arrange
-    //    CreateCategoria dados = new();
-    //    dados.Nome = nome;
-    //    dados.Tipo = tipo;
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    [DataRow("s")]
+    [DataRow("e")]
+    [DataRow("X")]
+    [DataRow("Y")]
+    [DataRow("A")]
+    public async Task CreateAsync_Se_o_Tipo_estiver_Diferente_S_ou_E_retorna_o_resultado_igual_a_False(string tipo)
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = "Entrada";
+        dados.Tipo = tipo;
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+        bool resultado = retorno.Successed;
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //[DataRow("Vendas", "E")]
-    //public async Task Se_o_Nome_nao_estiver_cadastrado_retorna_Successed_igual_a_True(string nome, string tipo)
-    //{
-    //    // Arrange 
-    //    CreateCategoria dados = new();
-    //    dados.Nome = nome;
-    //    dados.Tipo = tipo;
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Ja_Existir_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = "Entradas";
+        dados.Tipo = "S";
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.CreateAsync(dados);
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-    //}
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //[DataRow(3)]
-    //public async Task Se_o_Id_da_Categoria_nao_existir_retorna_Successed_igual_a_False(long id)
-    //{
-    //    // Arrange 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+        bool resultado = retorno.Successed;
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.DeleteAsync(id);
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Nao_Existir_retorna_o_resultado_igual_a_True()
+    {
+        // Arrange
+        CreateCategoria dados = new();
+        dados.Nome = "Vendas";
+        dados.Tipo = "E";
 
-    //[TestMethod]
-    //[TestCategory("Categoria - Service")]
-    //[DataRow(0, 1)]
-    //[DataRow(1, 1)]
-    //public async Task Devera_retornar_os_dados_conforme_paginacao(int skip, int take)
-    //{
-    //    // Arrange 
-    //    CreateCategoriaValidator validator = new CreateCategoriaValidator();
-    //    var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository);
+        CreateCategoriaValidator validator = new CreateCategoriaValidator();
+        var categoria = new CategoriaService(validator, _unitOfWork, _categoriaRepository, _mapper);
 
-    //    // Act
-    //    ServiceResult retorno = await categoria.GetViewAllAsync(skip, take);
+        // Act
+        ServiceResult retorno = await categoria.CreateAsync(dados);
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-    //}
+        bool resultado = retorno.Successed;
 
+        // Assert
+        Assert.IsTrue(resultado);
+    }
 }
