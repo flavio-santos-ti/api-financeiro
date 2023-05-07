@@ -2,6 +2,8 @@
 using API.Financeiro.Business.Services;
 using API.Financeiro.Business.Validators.Cliente;
 using API.Financeiro.Business.Validators.Fornecedor;
+using API.Financeiro.Domain.Cliente;
+using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
 using API.Financeiro.Infra.Data.Repositories;
@@ -60,22 +62,45 @@ public class FornecedorServiceTest
         Assert.IsFalse(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - GetAsync()")]
+    [DataRow(1)]
+    public async Task GetAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        // Act
+        Fornecedor retorno = await fornecedor.GetAsync(id);
+
+        bool resultado = retorno != null;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+    [TestMethod]
+    [TestCategory("Método - GetAsync()")]
+    [DataRow(5)]
+    public async Task GetAsync_Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateFornecedorValidator validator = new CreateFornecedorValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var fornecedor = new FornecedorService(validator, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        // Act
+        Fornecedor retorno = await fornecedor.GetAsync(id);
+
+        bool resultado = retorno != null;
+
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
 
-    //[TestMethod]
-    //[TestCategory("Fornecedor - Service")]
-    //[DataRow(2)]
-    //public async Task Se_ao_tentar_Excluir_o_Id_nao_estiver_cadastrado_retorna_Successed_igual_False(long fornecedorId)
-    //{
-    //    // Arrange 
-    //    var fornecedor = new FornecedorService(_unitOfWork, _pessoaService, _fornecedorRepository);
-
-    //    // Act
-    //    ServiceResult retorno = await fornecedor.DeleteAsync(fornecedorId);
-
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
 
     //[TestMethod]
     //[TestCategory("Fornecedor - Service")]

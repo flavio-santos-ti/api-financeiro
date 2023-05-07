@@ -7,6 +7,7 @@ namespace Test.API.Financeiro.Repository;
 public class FornecedorRepositoryFake : IFornecedorRepository
 {
     private IEnumerable<ViewFornecedor> _fornecedores;
+    private IEnumerable<Fornecedor> _fornecedoresEntity;
 
     public async Task AddAsync(Fornecedor newFornecedor)
     {
@@ -22,19 +23,25 @@ public class FornecedorRepositoryFake : IFornecedorRepository
 
     public async Task<Fornecedor> GetAsync(long id)
     {
-        await Task.Delay(1);
-        if (id == 1)
+        await Task.Run(() =>
         {
-            Fornecedor fornecedor = new();
-            fornecedor.Id = id;
-            fornecedor.PessoaId = 1;
-            fornecedor.DataInclusao = DateTime.Now;
-            return fornecedor;
-        }
-        else
-        {
-            return null;
-        }
+            _fornecedoresEntity = new List<Fornecedor>() {
+                new Fornecedor()
+                {
+                    Id = 1,
+                    PessoaId = 1,
+                    DataInclusao = DateTime.Now
+                },
+                new Fornecedor()
+                {
+                    Id = 2,
+                    PessoaId = 2,
+                    DataInclusao = DateTime.Now
+                }
+            };
+        });
+
+        return _fornecedoresEntity.Where(b => b.Id == id).FirstOrDefault();
     }
 
     public async Task<Fornecedor> GetByPessoaIdAsync(long pessoaId)
