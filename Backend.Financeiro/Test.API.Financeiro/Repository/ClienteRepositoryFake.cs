@@ -1,4 +1,5 @@
 ﻿using API.Financeiro.Domain.Cliente;
+using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Infra.Data.Interfaces;
 
 namespace Test.API.Financeiro.Repository;
@@ -6,6 +7,7 @@ namespace Test.API.Financeiro.Repository;
 public class ClienteRepositoryFake : IClienteRepository
 {
     private IEnumerable<ViewCliente> _clientes;
+    private IEnumerable<Cliente> _clientesEntity;
 
     public ClienteRepositoryFake()
     {
@@ -25,36 +27,48 @@ public class ClienteRepositoryFake : IClienteRepository
 
     public async Task<Cliente> GetAsync(long id)
     {
-        await Task.Delay(1);
-        if (id == 1)
+        await Task.Run(() =>
         {
-            Cliente cliente = new();
-            cliente.Id = id;
-            cliente.PessoaId = 1;
-            cliente.DataInclusao = DateTime.Now;
-            return cliente;
-        }
-        else
-        {
-            return null;
-        }
+            _clientesEntity = new List<Cliente>() {
+                new Cliente()
+                {
+                    Id = 1,
+                    PessoaId = 1,
+                    DataInclusao = DateTime.Now
+                },
+                new Cliente()
+                {
+                    Id = 2,
+                    PessoaId = 2,
+                    DataInclusao = DateTime.Now
+                }
+            };
+        });
+        
+        return _clientesEntity.Where(b => b.Id == id).FirstOrDefault();
     }
 
     public async Task<Cliente> GetByPessoaIdAsync(long pessoaId)
     {
-        await Task.Delay(1);
+        await Task.Run(() =>
+        {
+            _clientesEntity = new List<Cliente>() {
+                new Cliente()
+                {
+                    Id = 1,
+                    PessoaId = 1,
+                    DataInclusao = DateTime.Now
+                },
+                new Cliente()
+                {
+                    Id = 2,
+                    PessoaId = 2,
+                    DataInclusao = DateTime.Now
+                }
+            };
+        });
 
-        if (pessoaId == 1)
-        {
-            Cliente cliente = new();
-            cliente.PessoaId = pessoaId;
-            cliente.DataInclusao = DateTime.Now;
-            return cliente;
-        }
-        else
-        {
-            return null;
-        }
+        return _clientesEntity.Where(b => b.PessoaId == pessoaId).FirstOrDefault();
     }
 
     public async Task<IEnumerable<ViewCliente>> GetViewAllAsync(int skip, int take)

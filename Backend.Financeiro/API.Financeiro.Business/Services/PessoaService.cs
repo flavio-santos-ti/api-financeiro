@@ -27,6 +27,7 @@ public class PessoaService : ServiceBase, IPessoaService
         if (pessoa == null)
         {
             Pessoa newPessoa = new();
+            newPessoa.Id = 3;
             newPessoa.Nome = nome.ToUpper();
             newPessoa.HashNome = hashNome.ToUpper();
             newPessoa.DataInclusao = DateTime.Now;

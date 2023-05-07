@@ -1,15 +1,9 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
-using API.Financeiro.Business.Interfaces;
-using API.Financeiro.Business.Mappers;
 using API.Financeiro.Business.Services;
-using API.Financeiro.Business.Validators.Categoria;
 using API.Financeiro.Business.Validators.Cliente;
-using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
-using AutoMapper;
 using Test.API.Financeiro.Repository;
 using Test.API.Financeiro.UnitOfWork;
 
@@ -141,116 +135,125 @@ public class ClienteServiceTest
         Assert.IsFalse(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - DeleteAsync()")]
+    [DataRow(5)]
+    public async Task DeleteAsync_Se_o_Id_Nao_Existir_retorna_o_resultado_igual_a_False(long id)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
 
-    //[TestMethod]
-    //[TestCategory("Cliente - Service")]
-    //public async Task Se_o_Nome_Ja_estiver_cadastrado_retorna_Successed_igual_a_False()
-    //{
-    //    // Arrange 
-    //    CreateCliente dados = new();
-    //    dados.Nome = "Flavio";
+        // Act
+        ServiceResult retorno = await cliente.DeleteAsync(id);
 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+        bool resultado = retorno.Successed;
 
-    //    // Act
-    //    ServiceResult retorno = await cliente.CreateAsync(dados);
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+    [TestMethod]
+    [TestCategory("Método - DeleteAsync()")]
+    [DataRow(2)]
+    public async Task DeleteAsync_Se_o_Id_Existir_retorna_o_resultado_igual_a_True(long id)
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
 
-    //[TestMethod]
-    //[TestCategory("Cliente - Service")]
-    //public async Task Se_o_Nome_nao_estiver_cadastrado_retorna_Successed_igual_True()
-    //{
-    //    // Arrange 
-    //    CreateCliente dados = new();
-    //    dados.Nome = "Roberto";
+        // Act
+        ServiceResult retorno = await cliente.DeleteAsync(id);
 
+        bool resultado = retorno.Successed;
 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+        // Assert
+        Assert.IsTrue(resultado);
+    }
 
-    //    // Act
-    //    ServiceResult retorno = await cliente.CreateAsync(dados);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Ja_Existir_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
+        
+        CreateCliente dados = new();
+        dados.Nome = "Dina";
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
+        // Act
+        ServiceResult retorno = await cliente.CreateAsync(dados);
 
-    //}
+        bool resultado = retorno.Successed;
 
-    //[TestMethod]
-    //[TestCategory("Cliente - Service")]
-    //[DataRow(2)]
-    //public async Task Se_ao_tentar_Excluir_o_Id_nao_estiver_cadastrado_retorna_Successed_igual_False(long clientId)
-    //{
-    //    // Arrange 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    // Act
-    //    ServiceResult retorno = await cliente.DeleteAsync(clientId);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Nao_Existir_retorna_o_resultado_igual_a_True()
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
 
-    //    // Assert
-    //    Assert.IsFalse(retorno.Successed);
-    //}
+        CreateCliente dados = new();
+        dados.Nome = "Roberto";
 
-    //[TestMethod]
-    //[TestCategory("Cliente - Service")]
-    //[DataRow(1)]
-    //public async Task Se_o_Id_existir_retorna_Successed_igual_True(long clientId)
-    //{
-    //    // Arrange 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+        // Act
+        ServiceResult retorno = await cliente.CreateAsync(dados);
 
-    //    // Act
-    //    ServiceResult retorno = await cliente.DeleteAsync(clientId);
+        bool resultado = retorno.Successed;
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-    //}
+        // Assert
+        Assert.IsTrue(resultado);
+    }
 
-    //[TestMethod]
-    //[DataRow(0, 24)]
-    //[TestCategory("Cliente - Service")]
-    //public async Task Ao_chamar_o_metodo_GetViewAllAsync_retorna_Successed_igual_True(int skip, int take)
-    //{
-    //    // Arrange 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Estiver_Em_Branco_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
 
-    //    // Act
-    //    ServiceResult retorno = await cliente.GetViewAllAsync(skip, take);
+        CreateCliente dados = new();
+        dados.Nome = "";
 
-    //    // Assert
-    //    Assert.IsTrue(retorno.Successed);
-    //}
+        // Act
+        ServiceResult retorno = await cliente.CreateAsync(dados);
 
-    //[TestMethod]
-    //[DataRow(1)]
-    //[TestCategory("Cliente - Service")]
-    //public async Task Se_o_Id_existir_retorna_igual_True(int id)
-    //{
-    //    // Arrange 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+        bool resultado = retorno.Successed;
 
-    //    // Act
-    //    bool retorno = await cliente.IsValidAsync(id);
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 
-    //    // Assert
-    //    Assert.IsTrue(retorno);
-    //}
+    [TestMethod]
+    [TestCategory("Método - CreateAsync()")]
+    public async Task CreateAsync_Se_o_Nome_Estiver_Null_retorna_o_resultado_igual_a_False()
+    {
+        // Arrange
+        CreateClienteValidator validator = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var cliente = new ClienteService(validator, _unitOfWork, pessoaService, _clienteRepository);
 
-    //[TestMethod]
-    //[DataRow(2)]
-    //[TestCategory("Cliente - Service")]
-    //public async Task Se_o_Id_nao_existir_retorna_igual_False(int id)
-    //{
-    //    // Arrange 
-    //    var cliente = new ClienteService(_unitOfWork, _pessoaService, _clienteRepository);
+        CreateCliente dados = new();
+        dados.Nome = null;
 
-    //    // Act
-    //    bool retorno = await cliente.IsValidAsync(id);
+        // Act
+        ServiceResult retorno = await cliente.CreateAsync(dados);
 
-    //    // Assert
-    //    Assert.IsFalse(retorno);
-    //}
+        bool resultado = retorno.Successed;
 
+        // Assert
+        Assert.IsFalse(resultado);
+    }
 }
