@@ -13,8 +13,9 @@ public class ExtratoRepositoryFake : IExtratoRepository
 {
     public async Task AddAsync(Extrato dados)
     {
-        long id = dados.Id;
         await Task.Delay(1);
+
+        dados.Id += 1;
     }
 
     public Task<IEnumerable<ViewExtrato>> GetListarAsync(PeriodoExtrato filtro)
