@@ -241,6 +241,44 @@ public class CaixaServiceTest
         Assert.IsFalse(resultado);
     }
 
+    [TestMethod]
+    [TestCategory("Método - SetReceberAsync()")]
+    [DataRow(1)]
+    public async Task SetReceberAsync_retorna_True(long CategoriaId)
+    {
+        DateTime dataTransacao = new DateTime(2023, 1, 2);
+        ReceberCaixa dados = new();
+        dados.CategoriaId = CategoriaId;
+        dados.ClienteId = 1;
+        dados.Descricao = "Aporte de Capital";
+        dados.Valor = 1500;
+        dados.Data = dataTransacao;
+
+        ISaldoRepository saldoRepository = new SaldoRepositoryFake(dataTransacao);
+
+        // Arrange
+        var extratoService = new ExtratoService(_extratoRepository, _unitOfWork);
+        var saldoService = new SaldoService(saldoRepository, _unitOfWork);
+
+        CreateCategoriaValidator validatorCategoria = new CreateCategoriaValidator();
+        var categoriaService = new CategoriaService(validatorCategoria, _unitOfWork, _categoriaRepository, _mapper);
+
+        CreateClienteValidator validatorCliente = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var clienteService = new ClienteService(validatorCliente, _unitOfWork, pessoaService, _clienteRepository);
+
+        CreateFornecedorValidator validatorFornecedor = new CreateFornecedorValidator();
+        var fornecedorService = new FornecedorService(validatorFornecedor, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        var caixaService = new CaixaService(_unitOfWork, extratoService, saldoService, categoriaService, clienteService, fornecedorService);
+
+        // Act
+        ServiceResult retorno = await caixaService.SetReceberAsync(dados);
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
 
 
     //[TestMethod]
