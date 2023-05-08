@@ -20,9 +20,9 @@ public class SaldoRepositoryFake : ISaldoRepository
     private List<Saldo> _saldos;
     private DateTime _dataUltimoMovimento;
 
-    public SaldoRepositoryFake()
+    public SaldoRepositoryFake(DateTime dataUltimoMovimento)
     {
-        _dataUltimoMovimento = new DateTime(0001, 1, 1);
+        _dataUltimoMovimento = dataUltimoMovimento;
     }
 
     public async Task AddAsync(Saldo dados)
@@ -72,9 +72,16 @@ public class SaldoRepositoryFake : ISaldoRepository
         return saldo;
     }
 
-    public Task<decimal> GetSaldoAsync(DateTime data)
+    public async Task<decimal> GetSaldoAsync(DateTime data)
     {
-        throw new NotImplementedException();
+        await Task.Delay(1);
+        
+        if ( data == DateTime.Parse("2023/01/02"))
+        {
+            decimal valor = 25;
+            return valor;
+        }
+        return 10;
     }
 
     public async Task<DateTime> GetDataUltimoMovimentoAsync()
@@ -83,5 +90,4 @@ public class SaldoRepositoryFake : ISaldoRepository
 
         return _dataUltimoMovimento;
     }
-
 }
