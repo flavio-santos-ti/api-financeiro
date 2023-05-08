@@ -5,14 +5,11 @@ using API.Financeiro.Business.Validators.Categoria;
 using API.Financeiro.Business.Validators.Cliente;
 using API.Financeiro.Business.Validators.Fornecedor;
 using API.Financeiro.Domain.Caixa;
-using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
 using AutoMapper;
-using System.Security.Cryptography;
 using Test.API.Financeiro.Repository;
 using Test.API.Financeiro.UnitOfWork;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Test.API.Financeiro.Services;
 
@@ -274,6 +271,46 @@ public class CaixaServiceTest
 
         // Act
         ServiceResult retorno = await caixaService.SetReceberAsync(dados);
+        bool resultado = retorno.Successed;
+
+        // Assert
+        Assert.IsTrue(resultado);
+    }
+
+
+    [TestMethod]
+    [TestCategory("Método - SetPagarAsync()")]
+    [DataRow(2)]
+    public async Task SetPagarAsync_retorna_True(long CategoriaId)
+    {
+        DateTime dataTransacao = new DateTime(2023, 1, 2);
+        PagarCaixa dados = new();
+        dados.CategoriaId = CategoriaId;
+        dados.FornecedorId = 2;
+        dados.Descricao = "Serviços de Motoboy";
+        dados.Valor = 100;
+        dados.Data = dataTransacao;
+
+        ISaldoRepository saldoRepository = new SaldoRepositoryFake(dataTransacao);
+
+        // Arrange
+        var extratoService = new ExtratoService(_extratoRepository, _unitOfWork);
+        var saldoService = new SaldoService(saldoRepository, _unitOfWork);
+
+        CreateCategoriaValidator validatorCategoria = new CreateCategoriaValidator();
+        var categoriaService = new CategoriaService(validatorCategoria, _unitOfWork, _categoriaRepository, _mapper);
+
+        CreateClienteValidator validatorCliente = new CreateClienteValidator();
+        var pessoaService = new PessoaService(_unitOfWork, _pessoaRepository);
+        var clienteService = new ClienteService(validatorCliente, _unitOfWork, pessoaService, _clienteRepository);
+
+        CreateFornecedorValidator validatorFornecedor = new CreateFornecedorValidator();
+        var fornecedorService = new FornecedorService(validatorFornecedor, _unitOfWork, pessoaService, _fornecedorRepository);
+
+        var caixaService = new CaixaService(_unitOfWork, extratoService, saldoService, categoriaService, clienteService, fornecedorService);
+
+        // Act
+        ServiceResult retorno = await caixaService.SetPagarAsync(dados);
         bool resultado = retorno.Successed;
 
         // Assert

@@ -3,7 +3,6 @@ using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Caixa;
 using API.Financeiro.Domain.Result;
-using Microsoft.IdentityModel.Tokens;
 
 namespace API.Financeiro.Business.Services;
 
@@ -332,8 +331,4 @@ public class CaixaService : ServiceBase, ICaixaService
         await _unitOfWork.CommitAsync();
         return base.Successed("Pagamento registrado com sucesso.", "Pagamento Caixa", result, extrato.Id);
     }
-
-
-
-
 }
