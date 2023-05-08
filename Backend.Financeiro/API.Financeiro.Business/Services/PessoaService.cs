@@ -3,7 +3,6 @@ using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services.Base;
 using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Infra.Data.Interfaces;
-using FluentValidation;
 
 namespace API.Financeiro.Business.Services;
 

@@ -1,6 +1,5 @@
 ﻿using Api.Crud.Infra.Data.Context;
 using Api.Crud.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 

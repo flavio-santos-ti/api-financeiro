@@ -1,5 +1,4 @@
 ﻿using API.Financeiro.Domain.Cliente;
-using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Infra.Data.Interfaces;
 
 namespace Test.API.Financeiro.Repository;

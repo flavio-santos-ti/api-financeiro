@@ -1,6 +1,5 @@
 ﻿using Api.Crud.Infra.Data.Context;
 using Api.Crud.Infra.Data.Repositories.Base;
-using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Infra.Data.Interfaces;
 

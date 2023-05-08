@@ -1,5 +1,4 @@
 ﻿using API.Financeiro.Domain.Categoria;
-using System.Linq.Expressions;
 
 namespace API.Financeiro.Infra.Data.Interfaces
 {

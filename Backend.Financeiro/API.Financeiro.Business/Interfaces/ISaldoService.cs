@@ -1,10 +1,5 @@
 ﻿using API.Financeiro.Domain.Caixa;
 using API.Financeiro.Domain.Saldo;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace API.Financeiro.Business.Interfaces;
 

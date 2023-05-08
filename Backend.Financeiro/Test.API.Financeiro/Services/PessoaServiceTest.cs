@@ -1,11 +1,7 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
 using API.Financeiro.Business.Services;
-using API.Financeiro.Business.Validators.Cliente;
-using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Pessoa;
-using API.Financeiro.Domain.Result;
 using API.Financeiro.Infra.Data.Interfaces;
-using API.Financeiro.Infra.Data.Repositories;
 using Test.API.Financeiro.Repository;
 using Test.API.Financeiro.UnitOfWork;
 

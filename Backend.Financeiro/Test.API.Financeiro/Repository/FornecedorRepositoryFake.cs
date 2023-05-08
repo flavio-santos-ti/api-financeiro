@@ -1,5 +1,4 @@
-﻿using API.Financeiro.Domain.Cliente;
-using API.Financeiro.Domain.Fornecedor;
+﻿using API.Financeiro.Domain.Fornecedor;
 using API.Financeiro.Infra.Data.Interfaces;
 
 namespace Test.API.Financeiro.Repository;

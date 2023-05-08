@@ -1,6 +1,5 @@
 ﻿using Api.Crud.Infra.Data.Context;
 using Api.Crud.Infra.Data.Repositories.Base;
-using API.Financeiro.Domain.Cliente;
 using API.Financeiro.Domain.Saldo;
 using API.Financeiro.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;

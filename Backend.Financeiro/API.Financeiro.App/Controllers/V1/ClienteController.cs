@@ -1,5 +1,4 @@
 ﻿using API.Financeiro.Business.Interfaces;
-using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Domain.Cliente;
 using Microsoft.AspNetCore.Mvc;
 

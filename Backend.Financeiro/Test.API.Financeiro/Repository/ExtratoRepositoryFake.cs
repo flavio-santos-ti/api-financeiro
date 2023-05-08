@@ -1,11 +1,6 @@
 ﻿using API.Financeiro.Domain.Exrato;
 using API.Financeiro.Domain.Extrato;
 using API.Financeiro.Infra.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test.API.Financeiro.Repository;
 

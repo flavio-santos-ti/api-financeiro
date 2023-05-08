@@ -1,11 +1,5 @@
-﻿using API.Financeiro.Domain.Cliente;
-using API.Financeiro.Domain.Pessoa;
+﻿using API.Financeiro.Domain.Pessoa;
 using API.Financeiro.Infra.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test.API.Financeiro.Repository;
 

@@ -1,6 +1,5 @@
 ﻿using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Domain.Categoria;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Financeiro.App.Controllers.V1;

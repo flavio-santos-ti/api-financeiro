@@ -1,5 +1,4 @@
 ﻿using API.Financeiro.Domain.Cliente;
-using API.Financeiro.Domain.Pessoa;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

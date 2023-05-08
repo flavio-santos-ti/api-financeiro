@@ -1,10 +1,9 @@
-﻿using Dapper;
-using Api.Crud.Infra.Data.Context;
+﻿using Api.Crud.Infra.Data.Context;
+using Dapper;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Npgsql;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
+using System.Linq.Expressions;
 
 namespace Api.Crud.Infra.Data.Repositories.Base;
 

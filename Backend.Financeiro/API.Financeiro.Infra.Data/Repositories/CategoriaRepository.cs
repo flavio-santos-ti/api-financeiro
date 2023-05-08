@@ -1,10 +1,8 @@
 ﻿using Api.Crud.Infra.Data.Context;
 using Api.Crud.Infra.Data.Repositories.Base;
-using Api.Crud.Infra.Data.UnitOfWork;
 using API.Financeiro.Domain.Categoria;
 using API.Financeiro.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace API.Financeiro.Infra.Data.Repositories;
 

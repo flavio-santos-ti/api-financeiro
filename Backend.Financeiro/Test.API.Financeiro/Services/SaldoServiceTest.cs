@@ -1,20 +1,10 @@
 ﻿using Api.Crud.Infra.Data.Interfaces;
-using API.Financeiro.Business.Interfaces;
 using API.Financeiro.Business.Services;
 using API.Financeiro.Domain.Caixa;
-using API.Financeiro.Domain.Categoria;
-using API.Financeiro.Domain.Exrato;
 using API.Financeiro.Domain.Saldo;
 using API.Financeiro.Infra.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using Test.API.Financeiro.Repository;
 using Test.API.Financeiro.UnitOfWork;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Test.API.Financeiro.Services;
 
