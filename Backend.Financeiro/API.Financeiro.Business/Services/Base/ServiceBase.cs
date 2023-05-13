@@ -16,8 +16,19 @@ public class ServiceBase
 
     private string GetUltimaLetra(string substantivo)
     {
-        string ultimaLetra = substantivo.Substring(substantivo.Length - 1, 1) == "o" ? "o" : "a";
-        return ultimaLetra;
+        string ultimaLetra = substantivo.Substring(substantivo.Length - 1, 1);
+        
+        switch (ultimaLetra)
+        {
+            case "o":
+                return "o";
+            case "e":
+                return "o";
+            case "r":
+                return "o";
+            default:
+                return "a";
+        }
     }
     protected string ClearString(string text)
     {
@@ -132,6 +143,7 @@ public class ServiceBase
         result.Successed = true;
         result.Message = name + $" adicionad{this.GetUltimaLetra(name)} com sucesso.";
         result.Data = dados;
+        result.Count = 1;
         return result;
     }
     protected ServiceResult SuccessedAddId(long id, string name)

@@ -4,6 +4,8 @@ namespace API.Financeiro.Domain.Exrato;
 
 public class Extrato : EntityBase
 {
+    public long CategoriaId { get; set; }
+    public long PessoaId { get; set; }
     public string Tipo { get; set; }
     public string Descricao { get; set; }
     public decimal Valor { get; set; }

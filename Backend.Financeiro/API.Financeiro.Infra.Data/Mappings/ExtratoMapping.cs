@@ -13,6 +13,8 @@ public class ExtratoMapping : IEntityTypeConfiguration<Extrato>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id).HasColumnName("id");
+        builder.Property(x => x.CategoriaId).HasColumnName("categoria_id");
+        builder.Property(x => x.PessoaId).HasColumnName("pessoa_id");
         builder.Property(x => x.Tipo).HasColumnName("tipo");
         builder.Property(x => x.Descricao).HasColumnName("descricao");
         builder.Property(x => x.Valor).HasColumnName("valor");

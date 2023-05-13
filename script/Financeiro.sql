@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS public.categoria
     CONSTRAINT pk_categoria PRIMARY KEY(id) 
 );
 
-COMMENT ON TABLE public.categoria IS 'Categoria de Títulos. Tipo: E = Entrada e S = Saída';
+COMMENT ON TABLE public.categoria IS 'Categoria Tipo: E = Entrada, S = Saída, I = Saldo Inicial e F = Saldo Final';
 
 INSERT INTO public.categoria 
 (
@@ -38,6 +38,28 @@ VALUES
 (
     'Saídas',
     'S'
+);
+
+INSERT INTO public.categoria 
+(
+    nome,
+    tipo
+)
+VALUES
+(
+    'Saldo Inicial',
+    'I'
+);
+
+INSERT INTO public.categoria 
+(
+    nome,
+    tipo
+)
+VALUES
+(
+    'Saldo Final',
+    'F'
 );
 
 -- 1) Pessoa
@@ -81,15 +103,17 @@ CREATE TABLE IF NOT EXISTS public.fornecedor
 CREATE TABLE IF NOT EXISTS public.extrato 
 (
     id BIGSERIAL NOT NULL,
-    tipo CHAR(1) NOT NULL,
+    categoria_id BIGINT NOT NULL,
     pessoa_id BIGINT NOT NULL,
+    tipo CHAR(1) NOT NULL,
     descricao CHARACTER VARYING(50) NOT NULL,
     valor DECIMAL NOT NULL,
     saldo DECIMAL NOT NULL,
     valor_relatorio DECIMAL NOT NULL,
     dt_extrato TIMESTAMP NOT NULL,
     dt_inclusao TIMESTAMP NOT NULL,
-	CONSTRAINT pk_extrato PRIMARY KEY(id) 
+	CONSTRAINT pk_extrato PRIMARY KEY(id), 
+    CONSTRAINT fk_extrato_categoria FOREIGN KEY (categoria_id) REFERENCES public.pessoa(id),
     CONSTRAINT fk_extrato_pessoa FOREIGN KEY (pessoa_id) REFERENCES public.pessoa(id)
 );
 
