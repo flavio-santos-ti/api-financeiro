@@ -416,20 +416,46 @@ Scripts necessários para a criação do banco de dados esuas respecitvas  tabel
 ```sql
 CREATE DATABASE financeiro TEMPLATE = template0 LC_CTYPE = "pt_BR.UTF-8" LC_COLLATE = "pt_BR.UTF-8";
 ```
+ou
+```sql
+CREATE DATABASE financeiro TEMPLATE=template0 LC_CTYPE="Portuguese_Brazil.1252" LC_COLLATE="Portuguese_Brazil.1252";
+```
 
-##### 4.2.2 - Pessoa
+##### 4.2.2 - Categoria
 
 ```sql
-CREATE TABLE IF NOT EXISTS public.pessoa
+CREATE TABLE IF NOT EXISTS public.categoria
 (
-	id BIGSERIAL NOT NULL,
-	nome CHARACTER VARYING(50) NOT NULL,
-    	hash_nome CHARACTER VARYING(32) NOT NULL,
-	dt_inclusao TIMESTAMP WITH TIME ZONE NOT NULL,
-	CONSTRAINT pk_pessoa PRIMARY KEY(id)
+    id BIGSERIAL NOT NULL,
+    nome CHARACTER VARYING(50) NOT NULL,
+    tipo CHAR(1) NOT NULL,
+    CONSTRAINT pk_categoria PRIMARY KEY(id) 
 );
 
-CREATE INDEX ix_pessoa_hash_nome ON public.pessoa( hash_nome );
+COMMENT ON TABLE public.categoria IS 'Categoria de Títulos. Tipo: E = Entrada e S = Saída';
+
+-- Configuração default
+INSERT INTO public.categoria 
+(
+    nome,
+    tipo
+)
+VALUES
+(
+    'Entradas',
+    'E'
+);
+
+INSERT INTO public.categoria 
+(
+    nome,
+    tipo
+)
+VALUES
+(
+    'Saídas',
+    'S'
+);
 ```
 
 #### 4.2.3 - Cliente
