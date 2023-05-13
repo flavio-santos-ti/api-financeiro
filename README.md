@@ -421,7 +421,7 @@ ou
 CREATE DATABASE financeiro TEMPLATE=template0 LC_CTYPE="Portuguese_Brazil.1252" LC_COLLATE="Portuguese_Brazil.1252";
 ```
 
-##### 4.2.2 - Categoria
+#### 4.2.2 - Categoria
 
 ```sql
 CREATE TABLE IF NOT EXISTS public.categoria
