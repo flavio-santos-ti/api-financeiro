@@ -404,8 +404,9 @@ Na Entidade **Pessoa** para fins didáticos, não estamos utilizando o campo **C
 <i> Porém eu fiz uma pesquisa rápida em alguns comércios pequenos como **Oficina Mecânica**, e detectei que é comum o estabelecimento comercial não solicitar o número do **CPF/CNPJ** ao cliente.</i>
 
 <p>
-  <img width="1050" src="https://user-images.githubusercontent.com/62816438/221549322-7ced45d0-6872-4b73-b1fe-c12867b6def0.png" alt="arquitetura"/>
+  <img width="1050" src="https://github.com/flavio-santos-ti/api-financeiro/assets/62816438/d3a69c8a-9772-40aa-84a2-aee7bf59fe82" alt="arquitetura"/>
 </p>
+
 
 <p>
   <img width="1050" src="https://user-images.githubusercontent.com/62816438/221553552-01159273-a58e-49ac-9939-b9fe2cde7ea6.png" alt="arquitetura"/>
@@ -572,6 +573,7 @@ Para executar o projeto localmente, abra o Visual Studio 2022 e acesse a soluç�
 <p>
   <img width="1050" src="https://user-images.githubusercontent.com/62816438/221620896-672e5c2e-6efc-403a-b66b-722af31ea347.png" alt="arquitetura"/>
 </p>
+
 
 
 
