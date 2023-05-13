@@ -178,17 +178,6 @@ http{
             		proxy_pass http://fluxocaixa/api/v1/Categoria/;
 		}
 
-		# 1.8 - Situação do Caixa
-		location /fluxocaixa/api/v1/Caixa/Situacao {
-			proxy_method GET;
-			proxy_set_header content-type "application/json";
-            		proxy_set_header Upgrade $http_upgrade;
-            		proxy_set_header Host $host;
-		    	proxy_cache_bypass $http_upgrade;
-            		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/Caixa/Situacao/;
-		}
-
 		# 1.9 - Abrir Caixa
 		location /fluxocaixa/api/v1/Caixa/Abrir {
 			proxy_method POST;
@@ -211,73 +200,27 @@ http{
             		proxy_pass http://fluxocaixa/api/v1/Caixa/Fechar/;
 		}
 
-		# 1.11 - Registrar um Recebimento
-		location /fluxocaixa/api/v1/TituloReceber {
+		# 1.11 - Receber
+		location /fluxocaixa/api/v1/Caixa/Receber {
 			proxy_method POST;
 			proxy_set_header content-type "application/json";
             		proxy_set_header Upgrade $http_upgrade;
             		proxy_set_header Host $host;
 		    	proxy_cache_bypass $http_upgrade;
             		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/TituloReceber/;
+            		proxy_pass http://fluxocaixa/api/v1/Caixa/Receber/;
 		}
 
-		# 1.12 - Listar os Recebimentos registrados
-		location /fluxocaixa/api/v1/TituloReceber {
-			proxy_method GET;
-			proxy_set_header content-type "application/json";
-            		proxy_set_header Upgrade $http_upgrade;
-            		proxy_set_header Host $host;
-		    	proxy_cache_bypass $http_upgrade;
-            		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/TituloReceber/;
-		}
-
-		# 1.13 - Registrar um Pagamento
-		location /fluxocaixa/api/v1/TituloPagar {
+		# 1.12 - Pagar
+		location /fluxocaixa/api/v1/Caixa/Pagar {
 			proxy_method POST;
 			proxy_set_header content-type "application/json";
             		proxy_set_header Upgrade $http_upgrade;
             		proxy_set_header Host $host;
 		    	proxy_cache_bypass $http_upgrade;
             		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/TituloPagar/;
+            		proxy_pass http://fluxocaixa/api/v1/Caixa/Pagar/;
 		}
-
-		# 1.14 - Listar os Pagamentos registrados
-		location /fluxocaixa/api/v1/TituloPagar {
-			proxy_method GET;
-			proxy_set_header content-type "application/json";
-            		proxy_set_header Upgrade $http_upgrade;
-            		proxy_set_header Host $host;
-		    	proxy_cache_bypass $http_upgrade;
-            		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/TituloPagar/;
-		}
-
-		# 1.15 - Emitir um Extrato
-		location /fluxocaixa/api/v1/Extrato {
-			proxy_method POST;
-			proxy_set_header content-type "application/json";
-            		proxy_set_header Upgrade $http_upgrade;
-            		proxy_set_header Host $host;
-		    	proxy_cache_bypass $http_upgrade;
-            		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/Extrato/;
-		}
-
-		# 1.15 - Emitir um Extrato
-		location /fluxocaixa/api/v1/Extrato {
-			proxy_method POST;
-			proxy_set_header content-type "application/json";
-            		proxy_set_header Upgrade $http_upgrade;
-            		proxy_set_header Host $host;
-		    	proxy_cache_bypass $http_upgrade;
-            		proxy_set_header Connection 'upgrade';
-            		proxy_pass http://fluxocaixa/api/v1/Extrato/;
-		}
-
-
 	}
 
 }
@@ -455,6 +398,28 @@ VALUES
 (
     'Saídas',
     'S'
+);
+
+INSERT INTO public.categoria 
+(
+    nome,
+    tipo
+)
+VALUES
+(
+    'Saldo Inicial',
+    'I'
+);
+
+INSERT INTO public.categoria 
+(
+    nome,
+    tipo
+)
+VALUES
+(
+    'Saldo Final',
+    'F'
 );
 ```
 
