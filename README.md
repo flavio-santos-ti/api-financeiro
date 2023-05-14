@@ -468,7 +468,8 @@ CREATE TABLE IF NOT EXISTS public.fornecedor
 ```sql
 /*
   Como definimos um minúsculo escopo de registro de entradas e saídas financeiras, 
-  resolvi adicionar o fornecedor e cliente na própria entidade de extrato.
+  resolvi adicionar o fornecedor e cliente na própria entidade de extrato, utilizando
+  o sua herança de entidade pessoa.
 */
 
 CREATE TABLE IF NOT EXISTS public.extrato 
