@@ -466,6 +466,11 @@ CREATE TABLE IF NOT EXISTS public.fornecedor
 
 #### 4.2.6 - Extrato
 ```sql
+/*
+  Como definimos um minúsculo escopo de registro de entradas e saídas financeiras, 
+  resolvi adicionar o fornecedor e cliente na própria entidade de extrato.
+*/
+
 CREATE TABLE IF NOT EXISTS public.extrato 
 (
     	id BIGSERIAL NOT NULL,
