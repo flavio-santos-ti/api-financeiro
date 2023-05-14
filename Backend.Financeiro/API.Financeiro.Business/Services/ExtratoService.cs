@@ -22,6 +22,8 @@ public class ExtratoService : ServiceBase, IExtratoService
     {
         Extrato extrato = new();
         extrato.Descricao = "Saldo anterior";
+        extrato.CategoriaId = 3;
+        extrato.PessoaId = 3;
         extrato.Tipo = "S";
         extrato.Valor = saldoAnterior;
         extrato.DataExtrato = dados.DataInformada;
@@ -37,6 +39,8 @@ public class ExtratoService : ServiceBase, IExtratoService
     {
         Extrato extrato = new();
         extrato.Descricao = "Saldo do dia";
+        extrato.CategoriaId = 4;
+        extrato.PessoaId = 4;
         extrato.Tipo = "S";
         extrato.Valor = saldoAnterior;
         extrato.DataExtrato = dados.DataInformada;
@@ -54,6 +58,8 @@ public class ExtratoService : ServiceBase, IExtratoService
         Extrato extrato = new();
 
         extrato.Descricao = dados.Descricao;
+        extrato.CategoriaId = dados.CategoriaId;
+        extrato.PessoaId = dados.ClienteId;
         extrato.Tipo = "C";
         extrato.DataExtrato = dados.Data;
         extrato.Valor = dados.Valor;
@@ -79,6 +85,8 @@ public class ExtratoService : ServiceBase, IExtratoService
         Extrato extrato = new();
 
         extrato.Descricao = dados.Descricao;
+        extrato.CategoriaId = dados.CategoriaId;
+        extrato.PessoaId = dados.FornecedorId;
         extrato.Tipo = "D";
         extrato.DataExtrato = dados.Data;
         extrato.Valor = dados.Valor * (-1);

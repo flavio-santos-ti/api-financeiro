@@ -258,6 +258,8 @@ public class CaixaService : ServiceBase, ICaixaService
         }
 
         // Registra Extrato
+        var cliente = await _clienteService.GetAsync(dados.ClienteId);
+        dados.ClienteId = cliente.PessoaId;
         var extrato = await _extratoService.SetReceberAsync(dados, saldoAnterior);
 
         if (extrato == null)
@@ -309,6 +311,8 @@ public class CaixaService : ServiceBase, ICaixaService
         }
 
         // Registra Extrato
+        var fornecedor = await _fornecedorService.GetAsync(dados.FornecedorId);
+        dados.FornecedorId = fornecedor.PessoaId;
         var extrato = await _extratoService.SetPagarAsync(dados, saldoAnterior);
 
         if (extrato == null)
